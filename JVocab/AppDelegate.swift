@@ -88,6 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    static let shared = {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 }
 

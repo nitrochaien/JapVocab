@@ -26,11 +26,18 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: MainViewModel.refreshDataNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(openFromSlideMenu), name: SlideMenuController.showViewControllerNotification, object: nil)
     }
     
-    deinit {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         NotificationCenter.default.removeObserver(self,
                                                   name: MainViewModel.refreshDataNotification,
+                                                  object: nil)
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: SlideMenuController.showViewControllerNotification,
                                                   object: nil)
     }
     
@@ -120,6 +127,21 @@ class ViewController: UIViewController {
     
     func refreshUI() {
         tableView.reloadData()
+    }
+    
+    func openFromSlideMenu(_ notification: Notification) {
+        let userInfo = notification.userInfo!
+        let index = userInfo["index"] as! Int
+        
+        switch index {
+        case 0:
+            let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+            let controller = storyBoard.instantiateViewController(withIdentifier: "MultipleChoicesViewController")
+            navigationController?.pushViewController(controller, animated: true)
+            break
+        default:
+            break
+        }
     }
 }
 

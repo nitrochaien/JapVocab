@@ -16,6 +16,7 @@ class AddMoreViewController: UIViewController {
     
     @IBOutlet weak var tvWord: UITextField!
     @IBOutlet weak var tvDefinition: UITextField!
+    @IBOutlet weak var button: UIButton!
     
     let model = AddMoreViewModel()
     var delegate: IAddMore!
@@ -26,7 +27,12 @@ class AddMoreViewController: UIViewController {
         if model.isEditWord() {
             tvWord.text = model.getItemEditName()
             tvDefinition.text = model.getItemEditDefinition()
+            title = "Edit"
+        } else {
+            title = "Add new"
         }
+        
+        button.layer.borderColor = UIColor.blue.cgColor
     }
     
     override func viewWillDisappear(_ animated: Bool) {

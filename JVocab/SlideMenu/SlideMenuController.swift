@@ -19,6 +19,8 @@ class SlideMenuController: UIViewController {
     
     var list = [String]()
     
+    static let showViewControllerNotification = Notification.Name("showViewControllerNotification")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,10 +117,10 @@ extension SlideMenuController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        hide()
+        
         let row = indexPath.row
-        if row == 0 {
-            
-        }
+        NotificationCenter.default.post(name: SlideMenuController.showViewControllerNotification, object: nil, userInfo: ["index" : row])
     }
 }
 

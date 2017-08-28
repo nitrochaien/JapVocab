@@ -39,7 +39,7 @@
                     <navigationItem key="navigationItem" id="UIR-8Z-qu1">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="cQy-O2-gXh">
                             <connections>
-                                <segue destination="bGQ-DR-pnr" kind="show" identifier="segueToAddMore" id="nPN-2V-gMX"/>
+                                <action selector="onAdd:" destination="BYZ-38-t0r" id="LF1-YC-iL4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -85,7 +85,7 @@
                                                                 <rect key="frame" x="16" y="83.5" width="343" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -108,7 +108,7 @@
                                                         <rect key="frame" x="16" y="196" width="343" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zsW-Tx-qAL">
                                                         <rect key="frame" x="62" y="287.5" width="250" height="30"/>

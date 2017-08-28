@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MainViewModel {
     
@@ -17,7 +18,11 @@ class MainViewModel {
     func fetchData() {
         let context = AppDelegate.shared().persistentContainer.viewContext
         do {
-            wordList = try context.fetch(WordDB.fetchRequest())
+            let request: NSFetchRequest<WordDB> = WordDB.fetchRequest()
+            var sortDescriptor = NSSortDescriptor.init(key: "added_date", ascending: true)
+            sortDescriptor = sortDescriptor.reversedSortDescriptor as! NSSortDescriptor
+            request.sortDescriptors = [sortDescriptor]
+            wordList = try context.fetch(request)
         } catch {
             print("Fetching Failed")
         }
@@ -34,7 +39,23 @@ class MainViewModel {
         return wordList.count
     }
     
+    func getWords() -> [WordDB] {
+        return wordList
+    }
+    
     func getItemAtIndex(_ index: Int) -> WordDB {
         return wordList[index]
+    }
+    
+    func deleteItemAtIndex(_ index: Int) {
+        let item = wordList[index]
+        let context = AppDelegate.shared().persistentContainer.viewContext
+        context.delete(item)
+        do {
+            try context.save()
+        } catch {
+            print("Cant commit delete record")
+        }
+        reloadData()
     }
 }

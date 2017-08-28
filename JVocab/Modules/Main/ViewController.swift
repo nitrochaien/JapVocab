@@ -41,10 +41,6 @@ class ViewController: UIViewController {
         initTableView()
     }
     
-    func initData() {
-        
-    }
-    
     func initTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -77,11 +73,49 @@ class ViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueToAddMore" {
-            let controller = segue.destination as! AddMoreViewController
-            controller.delegate = self
+    @IBAction func onAdd(_ sender: Any) {
+        showAddScreen()
+//        showAddAlert()
+    }
+    
+    func showAddScreen() {
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let controller = storyBoard.instantiateViewController(withIdentifier: "AddMoreViewController")
+        if controller is AddMoreViewController {
+            let addController = controller as! AddMoreViewController
+            addController.delegate = self
+            navigationController?.pushViewController(addController, animated: true)
         }
+    }
+    
+    func showEditScreen(_ itemToEdit: WordDB) {
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let controller = storyBoard.instantiateViewController(withIdentifier: "AddMoreViewController")
+        if controller is AddMoreViewController {
+            let addController = controller as! AddMoreViewController
+            addController.delegate = self
+            addController.setEdit(itemToEdit)
+            navigationController?.pushViewController(addController, animated: true)
+        }
+    }
+    
+    func showAddAlert() {
+        let alert = UIAlertController(title: "New word", message: "Add a word", preferredStyle: .alert)
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "word"
+        }
+        alert.addTextField { (textField) in
+            textField.placeholder = "definition"
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            _ = alert?.textFields![0]
+            _ = alert?.textFields![1]
+        }))
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func refreshUI() {
@@ -109,5 +143,21 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.getCount()
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            model.deleteItemAtIndex(indexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let words = model.getWords()
+        let item = words[indexPath.row]
+        showEditScreen(item)
     }
 }

@@ -102,6 +102,13 @@
 			path = SlideMenu;
 			sourceTree = "<group>";
 		};
+		ED4597F11F53C0D1002A7728 /* MultipleChoices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MultipleChoices;
+			sourceTree = "<group>";
+		};
 		ED4670831F4FBE1E00533EBE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +133,7 @@
 			children = (
 				ED874BEF1F50229F0007DB05 /* AddMore */,
 				ED874BF11F50229F0007DB05 /* Main */,
+				ED4597F11F53C0D1002A7728 /* MultipleChoices */,
 			);
 			path = Modules;
 			sourceTree = "<group>";

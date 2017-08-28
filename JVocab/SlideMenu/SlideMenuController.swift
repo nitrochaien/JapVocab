@@ -31,7 +31,7 @@ class SlideMenuController: UIViewController {
     }
     
     func initData() {
-        list = ["This", "is", "what", "you", "looking", "for"]
+        list = ["Multiple choices", "is", "what", "you", "looking", "for"]
         tableview.reloadData()
     }
     
@@ -54,13 +54,8 @@ class SlideMenuController: UIViewController {
         swipeLeftGesture.direction = .left
         swipeLeftGesture.addTarget(self, action: #selector(handleSwipeLeftGesture))
         
-        let swipeRightGesture = UISwipeGestureRecognizer()
-        swipeRightGesture.direction = .right
-        swipeRightGesture.addTarget(parent ?? self, action: #selector(handleSwipeRightGesture))
-        
         view.addGestureRecognizer(tapGesture)
         view.addGestureRecognizer(swipeLeftGesture)
-//        view.addGestureRecognizer(swipeRightGesture)
     }
     
     func handleTapGesture(tap: UITapGestureRecognizer) {
@@ -74,12 +69,6 @@ class SlideMenuController: UIViewController {
     func handleSwipeLeftGesture(swipe: UISwipeGestureRecognizer) {
         if isOpening() {
             hide()
-        }
-    }
-    
-    func handleSwipeRightGesture(swipe: UISwipeGestureRecognizer) {
-        if !isOpening() {
-            show()
         }
     }
     
@@ -126,7 +115,10 @@ extension SlideMenuController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected row No.\(indexPath.row)")
+        let row = indexPath.row
+        if row == 0 {
+            
+        }
     }
 }
 

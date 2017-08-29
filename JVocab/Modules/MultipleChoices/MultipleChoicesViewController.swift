@@ -16,8 +16,10 @@ class MultipleChoicesViewController: UIViewController {
     @IBOutlet weak var btnAns3: UIButton!
     @IBOutlet weak var btnAns4: UIButton!
     @IBOutlet weak var btnContinue: UIButton!
-    
+    @IBOutlet var labelRecord: UILabel!
     var labelResult: UILabel!
+    
+    let navigationBarHeight: CGFloat = 64
     
     let model = MultipleChoicesViewModel()
 
@@ -28,7 +30,18 @@ class MultipleChoicesViewController: UIViewController {
         initData()
         
         //TODO: Add label to show how many words are correct
-        //Check if there are not enough words to create multiple choices question ( < 4)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCorrectAns), name: MultipleChoicesViewModel.updateCorrectAnswerNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: MultipleChoicesViewModel.updateCorrectAnswerNotification,
+                                                  object: nil)
     }
     
     func initView() {
@@ -65,6 +78,12 @@ class MultipleChoicesViewController: UIViewController {
     
     func initData() {
         model.setList()
+        
+        guard model.enoughWords() else {
+            showAlertCantProceed()
+            return
+        }
+        labelRecord.text = "Correct answer: 0/\(model.getCount())"
         autoGenerateQuiz()
     }
     
@@ -137,6 +156,15 @@ class MultipleChoicesViewController: UIViewController {
         btnAns4.isEnabled = state
     }
     
+    func updateCorrectAns() {
+        let correctAns = model.getCorrectAnswer()
+        if correctAns == 1 {
+            labelRecord.text = "Correct answer: \(correctAns)/\(model.getCount())"
+        } else {
+            labelRecord.text = "Correct answers: \(correctAns)/\(model.getCount())"
+        }
+    }
+    
     func onSelect(_ sender: UIButton) {
         showResult(sender.tag == 1)
     }
@@ -147,14 +175,24 @@ class MultipleChoicesViewController: UIViewController {
     
     func showAlertReset() {
         let alert = UIAlertController(title: "Alert", message: "You've reviewed all words! Take another tour?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction.init(title: "YES", style: .default, handler: { (action) in
             self.model.resetCurrentList()
             self.autoGenerateQuiz()
+            self.labelRecord.text = "Correct answer: 0/\(self.model.getCount())"
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "NO", style: .cancel, handler: { (action) in
             self.navigationController?.popViewController(animated: true)
         }))
 
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlertCantProceed() {
+        let alert = UIAlertController(title: "Alert", message: "You must have at least 4 words to do this test.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action) in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -170,7 +208,7 @@ class MultipleChoicesViewController: UIViewController {
         
         UIView.animate(withDuration: 0.5, animations: {
             var frame = self.labelResult.frame
-            frame = CGRect.init(x: 0, y: UIScreen.main.bounds.height - frame.height * 3, width: frame.width, height: frame.height)
+            frame = CGRect.init(x: 0, y: UIScreen.main.bounds.height - frame.height - self.navigationBarHeight, width: frame.width, height: frame.height)
             self.labelResult.frame = frame
         })
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -181,6 +219,7 @@ class MultipleChoicesViewController: UIViewController {
                 self.setButtonsState(true)
                 
                 if correct {
+                    self.model.updateCorrect()
                     self.autoGenerateQuiz()
                 }
             })

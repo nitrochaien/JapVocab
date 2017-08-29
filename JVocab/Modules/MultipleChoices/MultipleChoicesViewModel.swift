@@ -12,8 +12,10 @@ class MultipleChoicesViewModel {
     
     fileprivate var currentList = [WordDB]()
     fileprivate var selectedIndexes = [Int]()
+    fileprivate var sessionCorrectAnswer: Int = 0
+    fileprivate var allWords = [WordDB]()
     
-    var allWords = [WordDB]()
+    static let updateCorrectAnswerNotification = Notification.Name("updateCorrectAnswerNotification")
     
     func setList() {
         allWords = fetchData()
@@ -22,6 +24,7 @@ class MultipleChoicesViewModel {
     
     func resetCurrentList() {
         currentList = fetchData()
+        sessionCorrectAnswer = 0
     }
     
     func generateQuesion() -> MultipleChoicesObj {
@@ -57,6 +60,19 @@ class MultipleChoicesViewModel {
     
     func wordsRemaining() -> Int {
         return currentList.count
+    }
+    
+    func getCount() -> Int {
+        return allWords.count
+    }
+    
+    func getCorrectAnswer() -> Int {
+        return sessionCorrectAnswer
+    }
+    
+    func updateCorrect() {
+        sessionCorrectAnswer += 1
+        NotificationCenter.default.post(name: MultipleChoicesViewModel.updateCorrectAnswerNotification, object: nil, userInfo: nil)
     }
     
     func fetchData() -> [WordDB] {
@@ -112,5 +128,9 @@ class MultipleChoicesViewModel {
             }
         }
         return value
+    }
+    
+    func enoughWords() -> Bool {
+        return allWords.count >= 4
     }
 }

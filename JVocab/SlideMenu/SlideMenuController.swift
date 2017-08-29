@@ -33,13 +33,13 @@ class SlideMenuController: UIViewController {
     }
     
     func initData() {
-        list = ["Multiple choices", "is", "what", "you", "looking", "for"]
+        list = ["Multiple choices"]
         tableview.reloadData()
     }
     
     func initTableView() {
         tableview = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.width * 3/4, height: self.view.bounds.height))
-        tableview.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+        tableview.tableFooterView = UIView.init(frame: CGRect.zero)
         tableview.delegate = self
         tableview.dataSource = self
         

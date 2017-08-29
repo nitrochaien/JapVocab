@@ -19,7 +19,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         model = MainViewModel()
-        
         initView()
     }
     
@@ -33,11 +32,13 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self,
-                                                  name: MainViewModel.refreshDataNotification,
-                                                  object: nil)
-        
-        NotificationCenter.default.removeObserver(self,
                                                   name: SlideMenuController.showViewControllerNotification,
+                                                  object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: MainViewModel.refreshDataNotification,
                                                   object: nil)
     }
     

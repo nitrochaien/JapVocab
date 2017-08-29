@@ -288,7 +288,8 @@
 				TargetAttributes = {
 					ED8E906B1F4EC5A0009C095C = {
 						CreatedOnToolsVersion = 8.3;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 4D947669QT;
+						ProvisioningStyle = Manual;
 					};
 					ED8E90821F4EC5A0009C095C = {
 						CreatedOnToolsVersion = 8.3;
@@ -522,10 +523,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4D947669QT;
 				INFOPLIST_FILE = JVocab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d80748f3-d377-4f00-8ba4-1f7c9b698508";
+				PROVISIONING_PROFILE_SPECIFIER = "mobile dev";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -534,10 +538,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4D947669QT;
 				INFOPLIST_FILE = JVocab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d80748f3-d377-4f00-8ba4-1f7c9b698508";
+				PROVISIONING_PROFILE_SPECIFIER = "mobile dev";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

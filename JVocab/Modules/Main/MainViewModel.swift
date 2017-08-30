@@ -11,18 +11,34 @@ import CoreData
 
 class MainViewModel {
     
-    fileprivate var wordList = [WordDB]()
+    fileprivate var japList = [WordDB]()
+    fileprivate var chiList = [KanjiDB]()
+    
+    fileprivate let context = AppDelegate.shared().persistentContainer.viewContext
     
     static let refreshDataNotification = Notification.Name("refreshDataNotification")
     
-    func fetchData() {
-        let context = AppDelegate.shared().persistentContainer.viewContext
+    func fetchJapaneseWords() {
         do {
             let request: NSFetchRequest<WordDB> = WordDB.fetchRequest()
             var sortDescriptor = NSSortDescriptor.init(key: "added_date", ascending: true)
             sortDescriptor = sortDescriptor.reversedSortDescriptor as! NSSortDescriptor
             request.sortDescriptors = [sortDescriptor]
-            wordList = try context.fetch(request)
+            japList = try context.fetch(request)
+        } catch {
+            print("Fetching Failed")
+        }
+        
+        NotificationCenter.default.post(name: MainViewModel.refreshDataNotification, object: nil, userInfo: nil)
+    }
+    
+    func fetchChineseWords() {
+        do {
+            let request: NSFetchRequest<KanjiDB> = KanjiDB.fetchRequest()
+            var sortDescriptor = NSSortDescriptor.init(key: "added_date", ascending: true)
+            sortDescriptor = sortDescriptor.reversedSortDescriptor as! NSSortDescriptor
+            request.sortDescriptors = [sortDescriptor]
+            chiList = try context.fetch(request)
         } catch {
             print("Fetching Failed")
         }
@@ -31,25 +47,24 @@ class MainViewModel {
     }
     
     func reloadData() {
-        wordList.removeAll()
-        fetchData()
+        japList.removeAll()
+        fetchJapaneseWords()
     }
     
     func getCount() -> Int {
-        return wordList.count
+        return japList.count
     }
     
     func getWords() -> [WordDB] {
-        return wordList
+        return japList
     }
     
     func getItemAtIndex(_ index: Int) -> WordDB {
-        return wordList[index]
+        return japList[index]
     }
     
     func deleteItemAtIndex(_ index: Int) {
-        let item = wordList[index]
-        let context = AppDelegate.shared().persistentContainer.viewContext
+        let item = japList[index]
         context.delete(item)
         do {
             try context.save()

@@ -25,14 +25,18 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: MainViewModel.refreshDataNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(openFromSlideMenu), name: SlideMenuController.showViewControllerNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadJapaneseList), name: SlideMenuController.reloadListNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadChineseList), name: SlideMenuController.showQuizNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self,
-                                                  name: SlideMenuController.showViewControllerNotification,
+                                                  name: SlideMenuController.reloadListNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: SlideMenuController.showQuizNotification,
                                                   object: nil)
     }
     
@@ -56,7 +60,7 @@ class ViewController: UIViewController {
         tableView.separatorStyle = .singleLine
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
         
-        model.fetchData()
+        model.fetchJapaneseWords()
     }
     
     func initToolbar() {
@@ -130,7 +134,7 @@ class ViewController: UIViewController {
         tableView.reloadData()
     }
     
-    func openFromSlideMenu(_ notification: Notification) {
+    func openMultipleChoices(_ notification: Notification) {
         let userInfo = notification.userInfo!
         let index = userInfo["index"] as! Int
         
@@ -143,6 +147,14 @@ class ViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func loadJapaneseList() {
+        
+    }
+    
+    func loadChineseList() {
+        
     }
 }
 

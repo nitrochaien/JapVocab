@@ -12,14 +12,24 @@ enum State {
     case open, close
 }
 
+enum ListType {
+    case japanese, chinese
+}
+
+enum QuizType {
+    case multipleChoices
+}
+
 class SlideMenuController: UIViewController {
 
     var tableview: UITableView!
     var state: State!
     
-    var list = [String]()
+    var quiz = [String]()
+    var types = [String]()
     
-    static let showViewControllerNotification = Notification.Name("showViewControllerNotification")
+    static let reloadListNotification = Notification.Name("reloadListNotification")
+    static let showQuizNotification = Notification.Name("showQuizNotification")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,17 +38,18 @@ class SlideMenuController: UIViewController {
         initGestures()
         initData()
         
-        view.isHidden = true
         state = .close
     }
     
     func initData() {
-        list = ["Multiple choices"]
+        quiz = ["Multiple choices"]
+        types = ["Japanese", "Chinese"]
         tableview.reloadData()
     }
     
     func initTableView() {
-        tableview = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.width * 3/4, height: self.view.bounds.height))
+        let width = self.view.bounds.width * 3/4
+        tableview = UITableView.init(frame: CGRect.init(x: -width, y: 0, width: width, height: self.view.bounds.height))
         tableview.tableFooterView = UIView.init(frame: CGRect.zero)
         tableview.delegate = self
         tableview.dataSource = self
@@ -86,18 +97,16 @@ class SlideMenuController: UIViewController {
             self.tableview.frame = frame
         }) { (isOpenned) in
             self.state = .close
-            self.view.isHidden = true
         }
     }
     
     func show() {
-        view.isHidden = false
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3, animations: {
             var frame = self.tableview.frame
             self.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.6)
             frame = CGRect.init(x: 0, y: 0, width: frame.width, height: frame.height)
             self.tableview.frame = frame
-        }
+        })
         state = .open
     }
 }
@@ -107,20 +116,52 @@ extension SlideMenuController : UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell.init(style: .default, reuseIdentifier: "reuseCellId")
         cell.selectionStyle = .none
         
-        cell.textLabel?.text = list[indexPath.row]
-        
+        if indexPath.section == 0 {
+            cell.textLabel?.text = types[indexPath.row]
+        } else if indexPath.section == 1 {
+            cell.textLabel?.text = quiz[indexPath.row]
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        if section == 0 {
+            return types.count
+        }
+        return quiz.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         hide()
-        
         let row = indexPath.row
-        NotificationCenter.default.post(name: SlideMenuController.showViewControllerNotification, object: nil, userInfo: ["index" : row])
+        let section = indexPath.section
+        
+        if section == 0 {
+            var userInfo = [String : ListType]()
+            if row == 0 {
+                userInfo["type"] = .japanese
+            } else if row == 1 {
+                userInfo["type"] = .chinese
+            }
+            NotificationCenter.default.post(name: SlideMenuController.reloadListNotification, object: nil, userInfo: userInfo)
+        } else {
+            var userInfo = [String : QuizType]()
+            if row == 0 {
+                userInfo["type"] = .multipleChoices
+            }
+            NotificationCenter.default.post(name: SlideMenuController.showQuizNotification, object: nil, userInfo: userInfo)
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "List"
+        }
+        return "Quiz"
     }
 }
 

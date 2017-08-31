@@ -38,6 +38,7 @@ class SlideMenuController: UIViewController {
         initGestures()
         initData()
         
+        view.isHidden = true
         state = .close
     }
     
@@ -96,18 +97,22 @@ class SlideMenuController: UIViewController {
             frame = CGRect.init(x: -frame.width, y: 0, width: frame.width, height: frame.height)
             self.tableview.frame = frame
         }) { (isOpenned) in
+            self.view.isHidden = true
             self.state = .close
         }
     }
     
     func show() {
+        view.isHidden = false
+        
         UIView.animate(withDuration: 0.3, animations: {
             var frame = self.tableview.frame
             self.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.6)
             frame = CGRect.init(x: 0, y: 0, width: frame.width, height: frame.height)
             self.tableview.frame = frame
-        })
-        state = .open
+        }) { (isOpenned) in
+            self.state = .open
+        }
     }
 }
 

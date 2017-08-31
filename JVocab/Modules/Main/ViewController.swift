@@ -20,13 +20,15 @@ class ViewController: UIViewController {
         
         model = MainViewModel()
         initView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: MainViewModel.refreshDataNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: MainViewModel.refreshDataNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadJapaneseList), name: SlideMenuController.reloadListNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadChineseList), name: SlideMenuController.showQuizNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadList), name: SlideMenuController.reloadListNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(openMultipleChoices), name: SlideMenuController.showQuizNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,17 +98,18 @@ class ViewController: UIViewController {
         if controller is AddMoreViewController {
             let addController = controller as! AddMoreViewController
             addController.delegate = self
+            addController.setType(model.getType())
             navigationController?.pushViewController(addController, animated: true)
         }
     }
     
-    func showEditScreen(_ itemToEdit: WordDB) {
+    func showEditScreen(_ name: String, definition: String, type: ListType) {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         let controller = storyBoard.instantiateViewController(withIdentifier: "AddMoreViewController")
         if controller is AddMoreViewController {
             let addController = controller as! AddMoreViewController
             addController.delegate = self
-            addController.setEdit(itemToEdit)
+            addController.setEdit(name, definition: definition, type: type)
             navigationController?.pushViewController(addController, animated: true)
         }
     }
@@ -136,25 +139,21 @@ class ViewController: UIViewController {
     
     func openMultipleChoices(_ notification: Notification) {
         let userInfo = notification.userInfo!
-        let index = userInfo["index"] as! Int
+        let index = userInfo["type"] as! QuizType
         
         switch index {
-        case 0:
+        case .multipleChoices:
             let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
             let controller = storyBoard.instantiateViewController(withIdentifier: "MultipleChoicesViewController")
             navigationController?.pushViewController(controller, animated: true)
             break
-        default:
-            break
         }
     }
     
-    func loadJapaneseList() {
-        
-    }
-    
-    func loadChineseList() {
-        
+    func reloadList(_ notification: Notification) {
+        let userInfo = notification.userInfo!
+        let type = userInfo["type"] as! ListType
+        model.reloadData(type)
     }
 }
 
@@ -169,9 +168,16 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "cell")
         cell.selectionStyle = .none
         
-        let item = model.getItemAtIndex(indexPath.row)
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = item.definition
+        let type = model.getType()
+        if type == .japanese {
+            let item = model.getJapAtIndex(indexPath.row)
+            cell.textLabel?.text = item.name
+            cell.detailTextLabel?.text = item.definition
+        } else if type == .chinese {
+            let item = model.getChiAtIndex(indexPath.row)
+            cell.textLabel?.text = item.name
+            cell.detailTextLabel?.text = item.definition
+        }
         
         return cell
     }
@@ -191,8 +197,19 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let words = model.getWords()
-        let item = words[indexPath.row]
-        showEditScreen(item)
+        let type = model.getType()
+        var name = ""
+        var definition = ""
+        
+        if type == .japanese {
+            let item = model.getJapAtIndex(indexPath.row)
+            name = item.name!
+            definition = item.definition!
+        } else if type == .chinese {
+            let item = model.getChiAtIndex(indexPath.row)
+            name = item.name!
+            definition = item.definition!
+        }
+        showEditScreen(name, definition: definition, type: type)
     }
 }

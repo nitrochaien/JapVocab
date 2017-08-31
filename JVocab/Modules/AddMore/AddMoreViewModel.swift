@@ -11,22 +11,31 @@ import UIKit
 class AddMoreViewModel {
     
     fileprivate var editWord = false
-    fileprivate var itemToEdit: WordDB!
+    fileprivate var name = ""
+    fileprivate var definition = ""
+    fileprivate var type = ListType.japanese
+    fileprivate let context = AppDelegate.shared().persistentContainer.viewContext
     
     func saveNewWord(_ word: String, definition: String) {
         let info = validWord(word, definition: definition)
-        let context = AppDelegate.shared().persistentContainer.viewContext
-        let wordDB = WordDB(context: context)
-        wordDB.name = info[0]
-        wordDB.definition = info[1]
-        wordDB.added_date = Date() as NSDate
-        AppDelegate.shared().saveContext()
+        
+        if type == .japanese {
+            let wordDB = WordDB(context: context)
+            wordDB.name = info[0]
+            wordDB.definition = info[1]
+            wordDB.added_date = Date() as NSDate
+            AppDelegate.shared().saveContext()
+        } else if type == .chinese {
+            let kanjiDB = KanjiDB(context: context)
+            kanjiDB.name = info[0]
+            kanjiDB.definition = info[1]
+            kanjiDB.added_date = Date() as NSDate
+            AppDelegate.shared().saveContext()
+        }
     }
     
-    func fetchData() -> [WordDB] {
+    func fetchJapData() -> [WordDB] {
         var list = [WordDB]()
-        
-        let context = AppDelegate.shared().persistentContainer.viewContext
         do {
             list = try context.fetch(WordDB.fetchRequest())
         } catch {
@@ -36,18 +45,40 @@ class AddMoreViewModel {
         return list
     }
     
+    func fetchChiData() -> [KanjiDB] {
+        var list = [KanjiDB]()
+        do {
+            list = try context.fetch(KanjiDB.fetchRequest())
+        } catch {
+            print("Fetching Failed")
+        }
+        
+        return list
+    }
+    
     func wordIsExisted(_ word: String, definition: String) -> Bool {
-        let list = fetchData()
-        for item in list {
-            if item.name == word || item.definition == definition {
-                return true
+        if type == .japanese {
+            let list = fetchJapData()
+            for item in list {
+                if item.name == word || item.definition == definition {
+                    return true
+                }
             }
+            return false
+        } else if type == .chinese {
+            let list = fetchChiData()
+            for item in list {
+                if item.name == word || item.definition == definition {
+                    return true
+                }
+            }
+            return false
         }
         return false
     }
     
-    func replaceWord(_ word: String) {
-        let list = fetchData()
+    func replaceJapWord(_ word: String) {
+        let list = fetchJapData()
         
         var selectedItem : WordDB? = nil
         for item in list {
@@ -58,13 +89,38 @@ class AddMoreViewModel {
         }
         
         if let item = selectedItem {
-            deleteWord(item)
+            deleteJapWord(item)
             saveNewWord(item.name!, definition: item.definition!)
         }
     }
     
-    func deleteWord(_ item: WordDB) {
-        let context = AppDelegate.shared().persistentContainer.viewContext
+    func replaceChiWord(_ word: String) {
+        let list = fetchChiData()
+        
+        var selectedItem : KanjiDB? = nil
+        for item in list {
+            if item.name == word {
+                selectedItem = item
+                break
+            }
+        }
+        
+        if let item = selectedItem {
+            deleteChiWord(item)
+            saveNewWord(item.name!, definition: item.definition!)
+        }
+    }
+    
+    func deleteJapWord(_ item: WordDB) {
+        context.delete(item)
+        do {
+            try context.save()
+        } catch {
+            print("Cant commit delete record")
+        }
+    }
+    
+    func deleteChiWord(_ item: KanjiDB) {
         context.delete(item)
         do {
             try context.save()
@@ -80,26 +136,36 @@ class AddMoreViewModel {
         return [w, def]
     }
     
-    func setEdit(_ item: WordDB) {
+    func setEdit(_ name: String, definition: String, type: ListType) {
         editWord = true
-        itemToEdit = item
+        self.name = name
+        self.definition = definition
+        self.type = type
+    }
+    
+    func setType(_ type: ListType) {
+        self.type = type
     }
     
     func isEditWord() -> Bool {
         if editWord {
-            if itemToEdit != nil {
-                return true
+            if name.isEmpty || definition.isEmpty {
+                return false
             }
         }
-        return false
+        return true
     }
     
     func getItemEditName() -> String {
-        return itemToEdit.name!
+        return name
     }
     
     func getItemEditDefinition() -> String {
-        return itemToEdit.definition!
+        return definition
+    }
+    
+    func getType() -> ListType {
+        return type
     }
     
     func resetState() {

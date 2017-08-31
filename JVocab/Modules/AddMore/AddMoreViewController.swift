@@ -75,7 +75,12 @@ class AddMoreViewController: UIViewController {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Alert", message: "The word \(word) is existed! Overwrite?", preferredStyle: .alert)
             alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action) in
-                self.model.replaceWord(word)
+                let type = self.model.getType()
+                if type == .japanese {
+                    self.model.replaceJapWord(word)
+                } else if type == .chinese {
+                    self.model.replaceChiWord(word)
+                }
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -97,7 +102,11 @@ class AddMoreViewController: UIViewController {
         }
     }
     
-    func setEdit(_ itemToEdit: WordDB) {
-        model.setEdit(itemToEdit)
+    func setEdit(_ name: String, definition: String, type: ListType) {
+        model.setEdit(name, definition: definition, type: type)
+    }
+    
+    func setType(_ type: ListType) {
+        model.setType(type)
     }
 }

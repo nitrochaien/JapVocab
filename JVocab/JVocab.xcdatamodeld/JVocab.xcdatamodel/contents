@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="KanjiDB" representedClassName="KanjiDB" syncable="YES" codeGenerationType="class">
-        <attribute name="added_date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="definition" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="Kanji" representedClassName="Kanji" syncable="YES" codeGenerationType="class">
+        <attribute name="kanji" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="meaning" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="pronounces" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pronounce" inverseName="kanji" inverseEntity="Pronounce" syncable="YES"/>
+        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" inverseName="kanjis" inverseEntity="Word" syncable="YES"/>
     </entity>
-    <entity name="WordDB" representedClassName="WordDB" syncable="YES" codeGenerationType="class">
-        <attribute name="added_date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="definition" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="Pronounce" representedClassName="Pronounce" syncable="YES" codeGenerationType="class">
+        <attribute name="kun" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="on" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="kanji" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kanji" inverseName="pronounces" inverseEntity="Kanji" syncable="YES"/>
+    </entity>
+    <entity name="Word" representedClassName="Word" syncable="YES" codeGenerationType="class">
+        <attribute name="last_update" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="word" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="kanjis" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Kanji" inverseName="word" inverseEntity="Kanji" syncable="YES"/>
     </entity>
     <elements>
-        <element name="KanjiDB" positionX="-63" positionY="9" width="128" height="90"/>
-        <element name="WordDB" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Kanji" positionX="232" positionY="-225" width="128" height="103"/>
+        <element name="Pronounce" positionX="270" positionY="9" width="128" height="90"/>
+        <element name="Word" positionX="-63" positionY="-18" width="128" height="88"/>
     </elements>
 </model>

@@ -28,6 +28,7 @@
 		ED874BF41F50229F0007DB05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED874BF21F50229F0007DB05 /* ViewController.swift */; };
 		ED874BF61F5022AF0007DB05 /* AddMoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED874BF51F5022AF0007DB05 /* AddMoreViewModel.swift */; };
 		ED874BF81F5024B90007DB05 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED874BF71F5024B90007DB05 /* MainViewModel.swift */; };
+		ED8931971F57FE5900CA7214 /* DBUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8931961F57FE5900CA7214 /* DBUtils.swift */; };
 		ED8E90701F4EC5A0009C095C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8E906F1F4EC5A0009C095C /* AppDelegate.swift */; };
 		ED8E90751F4EC5A0009C095C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED8E90731F4EC5A0009C095C /* Main.storyboard */; };
 		ED8E90781F4EC5A0009C095C /* JVocab.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ED8E90761F4EC5A0009C095C /* JVocab.xcdatamodeld */; };
@@ -76,6 +77,7 @@
 		ED874BF21F50229F0007DB05 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ED874BF51F5022AF0007DB05 /* AddMoreViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMoreViewModel.swift; sourceTree = "<group>"; };
 		ED874BF71F5024B90007DB05 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		ED8931961F57FE5900CA7214 /* DBUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBUtils.swift; sourceTree = "<group>"; };
 		ED8E906C1F4EC5A0009C095C /* JVocab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JVocab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED8E906F1F4EC5A0009C095C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED8E90741F4EC5A0009C095C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -197,6 +199,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		ED8931951F57FE4100CA7214 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				ED8931961F57FE5900CA7214 /* DBUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		ED8E90631F4EC5A0009C095C = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +240,7 @@
 				ED874BEE1F50229F0007DB05 /* Modules */,
 				ED4670831F4FBE1E00533EBE /* Resources */,
 				ED3637651F4FB53B0046372A /* SlideMenu */,
+				ED8931951F57FE4100CA7214 /* Utils */,
 			);
 			path = JVocab;
 			sourceTree = "<group>";
@@ -410,6 +421,7 @@
 				ED874BF61F5022AF0007DB05 /* AddMoreViewModel.swift in Sources */,
 				ED874BF81F5024B90007DB05 /* MainViewModel.swift in Sources */,
 				ED3BE8C31F57B34B003D7F76 /* FillInTheBlankViewController.swift in Sources */,
+				ED8931971F57FE5900CA7214 /* DBUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

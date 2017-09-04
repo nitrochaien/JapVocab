@@ -15,7 +15,8 @@ protocol IAddMore {
 class AddMoreViewController: UIViewController {
     
     @IBOutlet weak var tvWord: UITextField!
-    @IBOutlet weak var tvDefinition: UITextField!
+    @IBOutlet weak var tvMeaning: UITextField!
+    @IBOutlet var tvKanji: UITextField!
     @IBOutlet weak var button: UIButton!
     
     let model = AddMoreViewModel()
@@ -24,15 +25,17 @@ class AddMoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if model.isEditWord() {
-            tvWord.text = model.getItemEditName()
-            tvDefinition.text = model.getItemEditDefinition()
-            title = "Edit"
-        } else {
-            title = "Add new"
-        }
+//        if model.isEditWord() {
+//            tvWord.text = model.getItemEditName()
+//            tvMeaning.text = model.getItemEditmeaning()
+//            title = "Edit"
+//        } else {
+//            title = "Add new"
+//        }
         
         button.layer.borderColor = UIColor.blue.cgColor
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -40,50 +43,34 @@ class AddMoreViewController: UIViewController {
         
         if delegate != nil {
             delegate.onReturnToMainViewController()
-            model.resetState()
+//            model.resetState()
         }
     }
     
     @IBAction func onSaveWord(_ sender: Any) {
         let word = tvWord.text ?? ""
-        let definition = tvDefinition.text ?? ""
+        let meaning = tvMeaning.text ?? ""
+        let kanji = tvKanji.text ?? ""
         
-        if word.isEmpty || definition.isEmpty {
+        if word.isEmpty || meaning.isEmpty || kanji.isEmpty {
             return
         }
         
-        if model.wordIsExisted(word, definition: definition) {
+        if model.isExisted(word, meaning: meaning, kanji: kanji) {
             if model.isEditWord() {
-                if model.getItemEditName() == word && model.getItemEditDefinition() == definition {
+                if model.name == word && model.meaning == meaning {
                     navigationController?.popViewController(animated: true)
                     return
                 }
             }
-            showAlert(word)
             return
         }
         
-        model.saveNewWord(word, definition: definition)
+        model.saveNewWord(word, meaning: meaning, kan: kanji)
         if model.isEditWord() {
             navigationController?.popViewController(animated: true)
         } else {
             alertContinue()
-        }
-    }
-    
-    func showAlert(_ word: String) {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Alert", message: "The word \(word) is existed! Overwrite?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action) in
-                let type = self.model.getType()
-                if type == .japanese {
-                    self.model.replaceJapWord(word)
-                } else if type == .chinese {
-                    self.model.replaceChiWord(word)
-                }
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -95,18 +82,14 @@ class AddMoreViewController: UIViewController {
             }))
             alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: { (action) in
                 self.tvWord.text = ""
-                self.tvDefinition.text = ""
+                self.tvMeaning.text = ""
                 self.tvWord.becomeFirstResponder()
             }))
             self.present(alert, animated: true, completion: nil)
         }
     }
     
-    func setEdit(_ name: String, definition: String, type: ListType) {
-        model.setEdit(name, definition: definition, type: type)
-    }
-    
-    func setType(_ type: ListType) {
-        model.setType(type)
+    func setEdit(_ name: String, meaning: String) {
+        model.setEdit(name, meaning: meaning)
     }
 }

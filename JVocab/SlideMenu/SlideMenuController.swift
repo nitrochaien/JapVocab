@@ -12,10 +12,6 @@ enum State {
     case open, close
 }
 
-enum ListType {
-    case japanese, chinese
-}
-
 enum QuizType {
     case multipleChoices
 }
@@ -44,7 +40,7 @@ class SlideMenuController: UIViewController {
     
     func initData() {
         quiz = ["Multiple choices"]
-        types = ["Japanese", "Chinese"]
+        types = ["My words", "Hiragana", "Katakana"]
         tableview.reloadData()
     }
     
@@ -141,14 +137,20 @@ extension SlideMenuController : UITableViewDelegate, UITableViewDataSource {
         let row = indexPath.row
         let section = indexPath.section
         
+        //List
         if section == 0 {
-            var userInfo = [String : ListType]()
+            //my words
             if row == 0 {
-                userInfo["type"] = .japanese
-            } else if row == 1 {
-                userInfo["type"] = .chinese
+                
             }
-            NotificationCenter.default.post(name: SlideMenuController.reloadListNotification, object: nil, userInfo: userInfo)
+            //hiragana
+            else if row == 1 {
+                
+            }
+            //katakana
+            else if row == 2 {
+                
+            }
         } else {
             var userInfo = [String : QuizType]()
             if row == 0 {

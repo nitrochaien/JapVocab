@@ -62,7 +62,7 @@ class ViewController: UIViewController {
         tableView.separatorStyle = .singleLine
         tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
         
-        model.fetchJapaneseWords()
+        model.fetchWords()
     }
     
     func initToolbar() {
@@ -98,21 +98,20 @@ class ViewController: UIViewController {
         if controller is AddMoreViewController {
             let addController = controller as! AddMoreViewController
             addController.delegate = self
-            addController.setType(model.getType())
             navigationController?.pushViewController(addController, animated: true)
         }
     }
     
-    func showEditScreen(_ name: String, definition: String, type: ListType) {
-        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-        let controller = storyBoard.instantiateViewController(withIdentifier: "AddMoreViewController")
-        if controller is AddMoreViewController {
-            let addController = controller as! AddMoreViewController
-            addController.delegate = self
-            addController.setEdit(name, definition: definition, type: type)
-            navigationController?.pushViewController(addController, animated: true)
-        }
-    }
+//    func showEditScreen(_ word: Word) {
+//        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+//        let controller = storyBoard.instantiateViewController(withIdentifier: "AddMoreViewController")
+//        if controller is AddMoreViewController {
+//            let addController = controller as! AddMoreViewController
+//            addController.delegate = self
+//            addController.setEdit(name, definition: definition, type: type)
+//            navigationController?.pushViewController(addController, animated: true)
+//        }
+//    }
     
     func showAddAlert() {
         let alert = UIAlertController(title: "New word", message: "Add a word", preferredStyle: .alert)
@@ -150,10 +149,8 @@ class ViewController: UIViewController {
         }
     }
     
-    func reloadList(_ notification: Notification) {
-        let userInfo = notification.userInfo!
-        let type = userInfo["type"] as! ListType
-        model.reloadData(type)
+    func reloadList() {
+        model.reloadData()
     }
 }
 
@@ -165,25 +162,16 @@ extension ViewController : IAddMore {
 
 extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "cell")
+        let cell = UITableViewCell.init(style: .default, reuseIdentifier: "cell")
         cell.selectionStyle = .none
-        
-        let type = model.getType()
-        if type == .japanese {
-            let item = model.getJapAtIndex(indexPath.row)
-            cell.textLabel?.text = item.name
-            cell.detailTextLabel?.text = item.definition
-        } else if type == .chinese {
-            let item = model.getChiAtIndex(indexPath.row)
-            cell.textLabel?.text = item.name
-            cell.detailTextLabel?.text = item.definition
-        }
+        let word = model.words[indexPath.row]
+        cell.textLabel?.text = word.word
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.getCount()
+        return model.words.count
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -192,24 +180,12 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            model.deleteItemAtIndex(indexPath.row)
+            model.deleteItemAt(indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let type = model.getType()
-        var name = ""
-        var definition = ""
-        
-        if type == .japanese {
-            let item = model.getJapAtIndex(indexPath.row)
-            name = item.name!
-            definition = item.definition!
-        } else if type == .chinese {
-            let item = model.getChiAtIndex(indexPath.row)
-            name = item.name!
-            definition = item.definition!
-        }
-        showEditScreen(name, definition: definition, type: type)
+//        let word = model.getMeaningFrom(indexPath)
+//        showEditScreen(word)
     }
 }

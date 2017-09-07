@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ED1412681F50371A00E2A18B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1412671F50371A00E2A18B /* UIViewController+Extension.swift */; };
+		ED2614271F61021900F36321 /* FillInTheBlankObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2614261F61021900F36321 /* FillInTheBlankObj.swift */; };
 		ED3637671F4FB53B0046372A /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3637661F4FB53B0046372A /* SlideMenuController.swift */; };
 		ED3BE8C31F57B34B003D7F76 /* FillInTheBlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3BE8C21F57B34B003D7F76 /* FillInTheBlankViewController.swift */; };
 		ED3BE8C51F57B362003D7F76 /* FillInTheBlankViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3BE8C41F57B362003D7F76 /* FillInTheBlankViewModel.swift */; };
@@ -17,6 +18,8 @@
 		ED4670871F4FBE1E00533EBE /* ic_menu@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4670841F4FBE1E00533EBE /* ic_menu@1x.png */; };
 		ED4670881F4FBE1E00533EBE /* ic_menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4670851F4FBE1E00533EBE /* ic_menu@2x.png */; };
 		ED4670891F4FBE1E00533EBE /* ic_menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4670861F4FBE1E00533EBE /* ic_menu@3x.png */; };
+		ED50453F1F60E98700087493 /* Quiz.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED50453E1F60E98700087493 /* Quiz.storyboard */; };
+		ED5045411F60F91200087493 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5045401F60F91200087493 /* UIButton+Extension.swift */; };
 		ED77784B1F56676300FC6C2C /* icon_kanji@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7778451F56676300FC6C2C /* icon_kanji@1x.png */; };
 		ED77784C1F56676300FC6C2C /* icon_kanji@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7778461F56676300FC6C2C /* icon_kanji@2x.png */; };
 		ED77784D1F56676300FC6C2C /* icon_kanji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7778471F56676300FC6C2C /* icon_kanji@3x.png */; };
@@ -57,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		ED1412671F50371A00E2A18B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		ED2614261F61021900F36321 /* FillInTheBlankObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillInTheBlankObj.swift; sourceTree = "<group>"; };
 		ED3637661F4FB53B0046372A /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		ED3BE8C21F57B34B003D7F76 /* FillInTheBlankViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillInTheBlankViewController.swift; sourceTree = "<group>"; };
 		ED3BE8C41F57B362003D7F76 /* FillInTheBlankViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillInTheBlankViewModel.swift; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 		ED4670841F4FBE1E00533EBE /* ic_menu@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu@1x.png"; sourceTree = "<group>"; };
 		ED4670851F4FBE1E00533EBE /* ic_menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu@2x.png"; sourceTree = "<group>"; };
 		ED4670861F4FBE1E00533EBE /* ic_menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu@3x.png"; sourceTree = "<group>"; };
+		ED50453E1F60E98700087493 /* Quiz.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Quiz.storyboard; sourceTree = "<group>"; };
+		ED5045401F60F91200087493 /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		ED7778451F56676300FC6C2C /* icon_kanji@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_kanji@1x.png"; sourceTree = "<group>"; };
 		ED7778461F56676300FC6C2C /* icon_kanji@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_kanji@2x.png"; sourceTree = "<group>"; };
 		ED7778471F56676300FC6C2C /* icon_kanji@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_kanji@3x.png"; sourceTree = "<group>"; };
@@ -131,6 +137,7 @@
 			children = (
 				ED3BE8C21F57B34B003D7F76 /* FillInTheBlankViewController.swift */,
 				ED3BE8C41F57B362003D7F76 /* FillInTheBlankViewModel.swift */,
+				ED2614261F61021900F36321 /* FillInTheBlankObj.swift */,
 			);
 			path = FillInTheBlank;
 			sourceTree = "<group>";
@@ -166,6 +173,7 @@
 			children = (
 				ED874BEC1F501FB70007DB05 /* String+Extension.swift */,
 				ED1412671F50371A00E2A18B /* UIViewController+Extension.swift */,
+				ED5045401F60F91200087493 /* UIButton+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -238,6 +246,7 @@
 				ED8E907B1F4EC5A0009C095C /* LaunchScreen.storyboard */,
 				ED8E90731F4EC5A0009C095C /* Main.storyboard */,
 				ED874BEE1F50229F0007DB05 /* Modules */,
+				ED50453E1F60E98700087493 /* Quiz.storyboard */,
 				ED4670831F4FBE1E00533EBE /* Resources */,
 				ED3637651F4FB53B0046372A /* SlideMenu */,
 				ED8931951F57FE4100CA7214 /* Utils */,
@@ -371,6 +380,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED50453F1F60E98700087493 /* Quiz.storyboard in Resources */,
 				ED4670891F4FBE1E00533EBE /* ic_menu@3x.png in Resources */,
 				ED8E907D1F4EC5A0009C095C /* LaunchScreen.storyboard in Resources */,
 				ED8E907A1F4EC5A0009C095C /* Assets.xcassets in Resources */,
@@ -412,9 +422,11 @@
 				ED4597F71F53D799002A7728 /* MultipleChoicesViewModel.swift in Sources */,
 				ED8E90701F4EC5A0009C095C /* AppDelegate.swift in Sources */,
 				ED4597F91F53EFDC002A7728 /* MultipleChoicesObj.swift in Sources */,
+				ED5045411F60F91200087493 /* UIButton+Extension.swift in Sources */,
 				ED3BE8C51F57B362003D7F76 /* FillInTheBlankViewModel.swift in Sources */,
 				ED3637671F4FB53B0046372A /* SlideMenuController.swift in Sources */,
 				ED874BF31F50229F0007DB05 /* AddMoreViewController.swift in Sources */,
+				ED2614271F61021900F36321 /* FillInTheBlankObj.swift in Sources */,
 				ED874BED1F501FB70007DB05 /* String+Extension.swift in Sources */,
 				ED8E90781F4EC5A0009C095C /* JVocab.xcdatamodeld in Sources */,
 				ED4597F51F53C6AE002A7728 /* MultipleChoicesViewController.swift in Sources */,

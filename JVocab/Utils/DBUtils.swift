@@ -30,19 +30,18 @@ class DBUtils {
     }
     
     func fetchKanjies() -> [Kanji] {
-        var list = [Kanji]()
-        let words = fetchData()
-        
-        for word in words {
-            guard let kanjiSet = word.kanjis else {
-                return list
-            }
-            let kanjies = kanjiSet.allObjects as! [Kanji]
-            for kanji in kanjies {
-                list.append(kanji)
-            }
+        var kanjies = [Kanji]()
+        do {
+            let request: NSFetchRequest<Kanji> = Kanji.fetchRequest()
+            var sortDescriptor = NSSortDescriptor.init(key: "kanji", ascending: true)
+            sortDescriptor = sortDescriptor.reversedSortDescriptor as! NSSortDescriptor
+            request.sortDescriptors = [sortDescriptor]
+            kanjies = try context.fetch(request)
+        } catch {
+            print("Fetching Failed")
         }
-        return list
+        
+        return kanjies
     }
     
     func getMeanings(_ word: Word) -> [String : String] {
@@ -60,11 +59,30 @@ class DBUtils {
         return results
     }
     
-    func getMeaningsOf(_ word: Word) -> [Kanji] {
+    func getKanjiDB(_ word: Word) -> [Kanji] {
         guard let kanjiSet = word.kanjis else {
             return [Kanji]()
         }
         return kanjiSet.allObjects as! [Kanji]
+    }
+    
+    func getWordFromDB(_ input: String) -> Word? {
+        let words = DBUtils.current.fetchData()
+        for word in words {
+            if word.word! == input {
+                return word
+            }
+        }
+        return nil
+    }
+
+    func getAllMeanings() -> [String] {
+        var result = [String]()
+        let kanjies = fetchKanjies()
+        for kanji in kanjies {
+            result.append(kanji.meaning!)
+        }
+        return result
     }
     
     func getContext() -> NSManagedObjectContext {

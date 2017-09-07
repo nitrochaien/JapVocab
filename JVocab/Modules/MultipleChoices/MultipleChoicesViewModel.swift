@@ -9,7 +9,7 @@
 import UIKit
 
 class MultipleChoicesViewModel {
-    fileprivate var selectedMeanings = [String]()
+    fileprivate var allMeanings = [String]()
     fileprivate var sessionCorrectAnswer: Int = 0
     fileprivate var allWords = [Kanji]()
     fileprivate var currentList = [Kanji]()
@@ -18,6 +18,7 @@ class MultipleChoicesViewModel {
     
     func setList() {
         allWords = DBUtils.current.fetchKanjies()
+        resetCurrentList()
     }
     
     func resetCurrentList() {
@@ -31,7 +32,7 @@ class MultipleChoicesViewModel {
         let wrongAns2 = generateWrongAnswer()
         let wrongAns3 = generateWrongAnswer()
         
-        selectedMeanings.removeAll()
+        allMeanings.removeAll()
         
         let object = MultipleChoicesObj()
         object.question = correctQA[0]
@@ -40,25 +41,29 @@ class MultipleChoicesViewModel {
         object.wrongAns2 = wrongAns2
         object.wrongAns3 = wrongAns3
         
+        print("Question set:")
+        print("question:\(object.question!)")
+        print("correct answer:\(object.correctAns!)")
+        print("wrong answer 1:\(object.wrongAns1!)")
+        print("wrong answer 2:\(object.wrongAns2!)")
+        print("wrong answer 3:\(object.wrongAns3!)")
+        
         return object
     }
     
     func getCorrectQA() -> [String] {
-        /*
-         Get a random kanji from KanjiDB, check its Word,
-        if the Word has more than 1 kanji,
-        show the Kanji as the question, show the Word otherwise
-         */
         var question = ""
         var answer = ""
         
         let randomQuizIndex = Int(arc4random_uniform(UInt32(currentList.count)))
         let kanji = currentList.remove(at: randomQuizIndex)
-        if let word = kanji.word {
-            let meanings = DBUtils.current.getMeaningsOf(word)
-            question = (meanings.count > 1 ? kanji.kanji : word.word)!
+        if let myKanji = kanji.kanji, let myMeaning = kanji.meaning {
+            if let word = kanji.word {
+                question = myKanji == "" ? word.word! : myKanji
+            }
+            answer = myMeaning
+            allMeanings.append(myMeaning)
         }
-        answer = kanji.meaning!
         
         return [question, answer]
     }
@@ -68,8 +73,8 @@ class MultipleChoicesViewModel {
         repeat {
             let ranIndex = Int(arc4random_uniform(UInt32(allWords.count)))
             meaning = allWords[ranIndex].meaning!
-        } while selectedMeanings.contains(meaning)
-        selectedMeanings.append(meaning)
+        } while allMeanings.contains(meaning)
+        allMeanings.append(meaning)
         return meaning
     }
     

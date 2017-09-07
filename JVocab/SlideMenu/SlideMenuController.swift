@@ -13,7 +13,7 @@ enum State {
 }
 
 enum QuizType {
-    case multipleChoices
+    case multipleChoices, fillBlanks
 }
 
 class SlideMenuController: UIViewController {
@@ -39,7 +39,7 @@ class SlideMenuController: UIViewController {
     }
     
     func initData() {
-        quiz = ["Multiple choices"]
+        quiz = ["Multiple choices", "Fill in the blanks"]
         types = ["My words", "Hiragana", "Katakana"]
         tableview.reloadData()
     }
@@ -155,6 +155,8 @@ extension SlideMenuController : UITableViewDelegate, UITableViewDataSource {
             var userInfo = [String : QuizType]()
             if row == 0 {
                 userInfo["type"] = .multipleChoices
+            } else if row == 1 {
+                userInfo["type"] = .fillBlanks
             }
             NotificationCenter.default.post(name: SlideMenuController.showQuizNotification, object: nil, userInfo: userInfo)
         }

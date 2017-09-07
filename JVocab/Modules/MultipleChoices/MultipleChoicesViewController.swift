@@ -57,10 +57,10 @@ class MultipleChoicesViewController: UIViewController {
     }
     
     func initButtons() {
-        setButtonBorder(btnAns1)
-        setButtonBorder(btnAns2)
-        setButtonBorder(btnAns3)
-        setButtonBorder(btnAns4)
+        btnAns1.borderAndCorner()
+        btnAns2.borderAndCorner()
+        btnAns3.borderAndCorner()
+        btnAns4.borderAndCorner()
         
         btnAns1.addTarget(self, action: #selector(onSelect), for: .touchUpInside)
         btnAns2.addTarget(self, action: #selector(onSelect), for: .touchUpInside)
@@ -68,12 +68,6 @@ class MultipleChoicesViewController: UIViewController {
         btnAns4.addTarget(self, action: #selector(onSelect), for: .touchUpInside)
         
         btnContinue.addTarget(self, action: #selector(onRefreshQuiz), for: .touchUpInside)
-    }
-    
-    func setButtonBorder(_ sender: UIButton) {
-        sender.layer.borderColor = UIColor.blue.cgColor
-        sender.layer.borderWidth = 1
-        sender.layer.cornerRadius = 5
     }
     
     func initData() {
@@ -175,12 +169,12 @@ class MultipleChoicesViewController: UIViewController {
     
     func showAlertReset() {
         let alert = UIAlertController(title: "Alert", message: "You've reviewed all words! Take another tour?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction.init(title: "YES", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { (action) in
             self.model.resetCurrentList()
             self.autoGenerateQuiz()
             self.labelRecord.text = "Correct answer: 0/\(self.model.getCount())"
         }))
-        alert.addAction(UIAlertAction(title: "NO", style: .cancel, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action) in
             self.navigationController?.popViewController(animated: true)
         }))
 

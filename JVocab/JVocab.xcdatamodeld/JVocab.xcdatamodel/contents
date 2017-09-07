@@ -14,11 +14,11 @@
     <entity name="Word" representedClassName="Word" syncable="YES" codeGenerationType="class">
         <attribute name="last_update" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="word" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="kanjis" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Kanji" inverseName="word" inverseEntity="Kanji" syncable="YES"/>
+        <relationship name="kanjis" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Kanji" inverseName="word" inverseEntity="Kanji" syncable="YES"/>
     </entity>
     <elements>
         <element name="Kanji" positionX="232" positionY="-225" width="128" height="103"/>
         <element name="Pronounce" positionX="270" positionY="9" width="128" height="90"/>
-        <element name="Word" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Word" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadList), name: SlideMenuController.reloadListNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(openMultipleChoices), name: SlideMenuController.showQuizNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(openQuiz), name: SlideMenuController.showQuizNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -136,14 +136,18 @@ class ViewController: UIViewController {
         tableView.reloadData()
     }
     
-    func openMultipleChoices(_ notification: Notification) {
+    func openQuiz(_ notification: Notification) {
         let userInfo = notification.userInfo!
         let index = userInfo["type"] as! QuizType
+        let storyBoard = UIStoryboard.init(name: "Quiz", bundle: nil)
         
         switch index {
         case .multipleChoices:
-            let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
             let controller = storyBoard.instantiateViewController(withIdentifier: "MultipleChoicesViewController")
+            navigationController?.pushViewController(controller, animated: true)
+            break
+        case .fillBlanks:
+            let controller = storyBoard.instantiateViewController(withIdentifier: "FillInTheBlankViewController")
             navigationController?.pushViewController(controller, animated: true)
             break
         }
@@ -187,5 +191,12 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let word = model.getMeaningFrom(indexPath)
 //        showEditScreen(word)
+        
+        let word = model.words[indexPath.row]
+        print("word: \(word.word!)")
+        let kanjies = word.kanjis?.allObjects as! [Kanji]
+        for kanji in kanjies {
+            print("kanji: \(kanji.kanji!), meaning: \(kanji.meaning!)")
+        }
     }
 }

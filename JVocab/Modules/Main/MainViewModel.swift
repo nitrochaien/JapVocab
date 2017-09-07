@@ -28,7 +28,7 @@ class MainViewModel {
     
     func getMeaningFrom(_ indexPath: IndexPath) -> [Kanji] {
         let word = words[indexPath.row]
-        return DBUtils.current.getMeaningsOf(word)
+        return DBUtils.current.getKanjiDB(word)
     }
     
     func deleteItemAt(_ indexPath: IndexPath) {

@@ -9,5 +9,11 @@
 import UIKit
 
 extension String {
-    
+    func splitCharacter() -> [String] {
+        var split = [String]()
+        for w in self.characters {
+            split.append(String(w))
+        }
+        return split
+    }
 }

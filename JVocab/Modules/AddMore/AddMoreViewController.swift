@@ -18,6 +18,7 @@ class AddMoreViewController: UIViewController {
     @IBOutlet weak var tvMeaning: UITextField!
     @IBOutlet var tvKanji: UITextField!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet var labelAlert: UILabel!
     
     let model = AddMoreViewModel()
     var delegate: IAddMore!
@@ -33,9 +34,19 @@ class AddMoreViewController: UIViewController {
 //            title = "Add new"
 //        }
         
-        button.layer.borderColor = UIColor.blue.cgColor
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
+        button.borderAndCorner()
+        labelAlert.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(showAlertEnterKanji), name: AddMoreViewModel.enterKanjiNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(wordIsSaved), name: AddMoreViewModel.savedWordNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: AddMoreViewModel.enterKanjiNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AddMoreViewModel.savedWordNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -43,7 +54,7 @@ class AddMoreViewController: UIViewController {
         
         if delegate != nil {
             delegate.onReturnToMainViewController()
-//            model.resetState()
+            model.resetState()
         }
     }
     
@@ -52,11 +63,13 @@ class AddMoreViewController: UIViewController {
         let meaning = tvMeaning.text ?? ""
         let kanji = tvKanji.text ?? ""
         
-        if word.isEmpty || meaning.isEmpty || kanji.isEmpty {
+        if word.isEmpty || meaning.isEmpty {
+            showEmptyInputAlert()
             return
         }
         
-        if model.isExisted(word, meaning: meaning, kanji: kanji) {
+        //check if meaning is existed
+        if model.isExisted(meaning) {
             if model.isEditWord() {
                 if model.name == word && model.meaning == meaning {
                     navigationController?.popViewController(animated: true)
@@ -65,31 +78,47 @@ class AddMoreViewController: UIViewController {
             }
             return
         }
-        
         model.saveNewWord(word, meaning: meaning, kan: kanji)
-        if model.isEditWord() {
-            navigationController?.popViewController(animated: true)
-        } else {
-            alertContinue()
-        }
     }
     
-    func alertContinue() {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Alert", message: "Word is added. Add more?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction.init(title: "No, Take me back", style: .default, handler: { (action) in
-                self.navigationController?.popViewController(animated: true)
-            }))
-            alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: { (action) in
-                self.tvWord.text = ""
-                self.tvMeaning.text = ""
-                self.tvWord.becomeFirstResponder()
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
+    func updateWordIsSavedUI() {
+        labelAlert.text = "Yay new word!!"
+        labelAlert.isHidden = false
+        labelAlert.textColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            self.labelAlert.isHidden = true
+        })
+        tvWord.text = ""
+        tvMeaning.text = ""
+        tvKanji.text = ""
+        tvWord.becomeFirstResponder()
     }
     
     func setEdit(_ name: String, meaning: String) {
         model.setEdit(name, meaning: meaning)
+    }
+    
+    func showEmptyInputAlert() {
+        labelAlert.text = "Please enter both 'word' and 'meaning' to save."
+        labelAlert.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            self.labelAlert.isHidden = true
+        })
+    }
+    
+    func showAlertEnterKanji() {
+        labelAlert.text = "'Kanji' must not empty."
+        labelAlert.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            self.labelAlert.isHidden = true
+        })
+    }
+    
+    func wordIsSaved() {
+        if model.isEditWord() {
+            navigationController?.popViewController(animated: true)
+        } else {
+            updateWordIsSavedUI()
+        }
     }
 }

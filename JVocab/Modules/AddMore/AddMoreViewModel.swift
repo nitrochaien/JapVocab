@@ -9,12 +9,14 @@
 import UIKit
 
 class AddMoreViewModel {
-    
     var editWord = false
     var name = ""
     var meaning = ""
     
     fileprivate var words = [Word]()
+    
+    static let enterKanjiNotification = Notification.Name("enterKanjiNotification")
+    static let savedWordNotification = Notification.Name("savedWordNotification")
     
     func fetchWords() {
         words = DBUtils.current.fetchData()
@@ -22,42 +24,50 @@ class AddMoreViewModel {
     
     func saveNewWord(_ word: String, meaning: String, kan: String) {
         let context = DBUtils.current.getContext()
-        let wordDB = Word(context: context)
-        wordDB.word = word
-        wordDB.last_update = Date() as NSDate
         
-        let kanji = Kanji(context: context)
-        kanji.meaning = meaning
-        kanji.kanji = kan
+        let newKanji = Kanji(context: context)
+        newKanji.meaning = meaning
+        newKanji.kanji = kan
         
-        wordDB.addToKanjis(kanji)
-        
+        //If word is existed, append new meaning to the word
+        if existedWord(word) {
+            if kan.isEmpty {
+                NotificationCenter.default.post(name: AddMoreViewModel.enterKanjiNotification, object: nil, userInfo: nil)
+                return
+            }
+            if let wordDB = DBUtils.current.getWordFromDB(word) {
+                wordDB.addToKanjis(newKanji)
+            }
+        } else { //Otherwise, create new word
+            let wordDB = Word(context: context)
+            wordDB.word = word
+            wordDB.last_update = Date() as NSDate
+            
+            wordDB.addToKanjis(newKanji)
+        }
         AppDelegate.shared().saveContext()
-    }
-    
-    func isExisted(_ word:String, meaning: String, kanji: String) -> Bool {
-        let selectedWord = getWordDBFrom(word)
         
-        guard let existedWord = selectedWord else {
-            return false
-        }
-        let meanings = DBUtils.current.getMeanings(existedWord)
-        let result = meanings.contains { (key, value) -> Bool in
-            return key == kanji && value == meaning
-        }
-        return result
+        NotificationCenter.default.post(name: AddMoreViewModel.savedWordNotification, object: nil, userInfo: nil)
     }
     
-    func getWordDBFrom(_ word: String) -> Word? {
-        var selectedWord: Word? = nil
-        for wrd in words {
-            let w = wrd.word
-            if w == word {
-                selectedWord = wrd
-                break
+    func isExisted(_ meaning: String) -> Bool {
+        let kanjies = DBUtils.current.fetchKanjies()
+        for kanji in kanjies {
+            if kanji.meaning == meaning {
+                return true
             }
         }
-        return selectedWord
+        return false
+    }
+    
+    func existedWord(_ input: String) -> Bool {
+        let words = DBUtils.current.fetchData()
+        for word in words {
+            if word.word! == input {
+                return true
+            }
+        }
+        return false
     }
 
     func setEdit(_ name: String, meaning: String) {
@@ -67,12 +77,7 @@ class AddMoreViewModel {
     }
     
     func isEditWord() -> Bool {
-        if editWord {
-            if name.isEmpty || meaning.isEmpty {
-                return false
-            }
-        }
-        return true
+        return editWord
     }
     
     func resetState() {

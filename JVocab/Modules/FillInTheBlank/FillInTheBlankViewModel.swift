@@ -10,18 +10,12 @@ import UIKit
 
 class FillInTheBlankViewModel {
     var currentList = [Kanji]()
-    var correctAns = 0
-    let words = DBUtils.current.fetchKanjies()
     
     init() {
-        currentList = words
+        currentList = DBUtils.current.fetchKanjies()
     }
     
     func generateQuestion() -> FillInTheBlankObj {
-        if correctAns == words.count {
-            //TODO: ask if want to take another tour
-            //If yes, reset currentList & correctAns
-        }
         var question = ""
         var answer = ""
         let randomQuizIndex = Int(arc4random_uniform(UInt32(currentList.count)))
@@ -34,5 +28,13 @@ class FillInTheBlankViewModel {
         obj.question = question
         obj.answer = answer
         return obj
+    }
+    
+    func finished() -> Bool {
+        return currentList.count == 0
+    }
+    
+    func reset() {
+        currentList = DBUtils.current.fetchKanjies()
     }
 }

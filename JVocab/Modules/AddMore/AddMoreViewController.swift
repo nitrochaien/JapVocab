@@ -82,10 +82,10 @@ class AddMoreViewController: UIViewController {
     }
     
     func updateWordIsSavedUI() {
-        labelAlert.text = "Yay new word!!"
+        labelAlert.text = "Yay we've got a new word!!\nLet's add another one."
         labelAlert.isHidden = false
         labelAlert.textColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
             self.labelAlert.isHidden = true
         })
         tvWord.text = ""

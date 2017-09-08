@@ -587,12 +587,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 4D947669QT;
 				INFOPLIST_FILE = JVocab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d80748f3-d377-4f00-8ba4-1f7c9b698508";
+				PROVISIONING_PROFILE = "89272da7-baeb-454e-a1eb-db509d8dea37";
 				PROVISIONING_PROFILE_SPECIFIER = "mobile dev";
 				SWIFT_VERSION = 3.0;
 			};

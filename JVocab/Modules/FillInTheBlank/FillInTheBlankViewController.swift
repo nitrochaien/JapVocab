@@ -51,6 +51,10 @@ class FillInTheBlankViewController: UIViewController {
     }
     
     func generateQuiz() {
+        if model.finished() {
+            showAlertReset()
+            return
+        }
         let object = model.generateQuestion()
         labelQuestion.text = object.question
         correctAnswer = object.answer!
@@ -90,6 +94,9 @@ class FillInTheBlankViewController: UIViewController {
             textField.backgroundColor = UIColor.white
             textField.delegate = self
             textField.borderStyle = .none
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+            textField.tag = index
             inputViews.append(textField)
             
             let border = CALayer()
@@ -109,7 +116,7 @@ class FillInTheBlankViewController: UIViewController {
     
     @IBAction func onClickSkip(_ sender: Any) {
         if model.finished() {
-            
+            showAlertReset()
         } else {
             generateQuiz()
         }
@@ -168,12 +175,17 @@ class FillInTheBlankViewController: UIViewController {
 }
 
 extension FillInTheBlankViewController : UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        if reason == .committed {
-            answer = ""
-            for view in inputViews {
-                answer += view.text ?? ""
-            }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        answer = ""
+        for view in inputViews {
+            answer += view.text ?? ""
         }
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard.
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }

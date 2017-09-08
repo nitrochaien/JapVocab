@@ -31,7 +31,7 @@ class FillInTheBlankViewModel {
     }
     
     func finished() -> Bool {
-        return currentList.count == 0
+        return currentList.isEmpty
     }
     
     func reset() {

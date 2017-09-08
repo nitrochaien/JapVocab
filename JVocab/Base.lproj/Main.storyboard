@@ -67,10 +67,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vU-Hu-Vg4">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="387.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="366.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4if-UU-Vjr">
-                                                <rect key="frame" x="0.0" y="32" width="375" height="355.5"/>
+                                                <rect key="frame" x="0.0" y="32" width="375" height="334.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dV-ci-xT0">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
@@ -127,7 +127,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddy-DK-Y6l">
-                                                        <rect key="frame" x="0.0" y="182" width="375" height="173.5"/>
+                                                        <rect key="frame" x="0.0" y="182" width="375" height="152.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter kanji" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXS-OZ-E9m">
                                                                 <rect key="frame" x="16" y="16" width="343" height="20.5"/>
@@ -148,8 +148,8 @@
                                                                     <action selector="onSaveWord:" destination="bGQ-DR-pnr" eventType="touchUpInside" id="H8C-rT-b4Y"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5i-8q-ikj">
-                                                                <rect key="frame" x="62.5" y="136.5" width="250" height="21"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5i-8q-ikj">
+                                                                <rect key="frame" x="62.5" y="136.5" width="250" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" red="1" green="0.2292423321" blue="0.1218706644" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -217,6 +217,7 @@
                     <connections>
                         <outlet property="button" destination="qeV-pk-Y5d" id="CnD-b9-3Ru"/>
                         <outlet property="labelAlert" destination="P5i-8q-ikj" id="RvE-Rx-qjR"/>
+                        <outlet property="scrollView" destination="VGo-kg-YK4" id="5nn-oC-qZq"/>
                         <outlet property="tvKanji" destination="yHa-0O-c1q" id="1Pl-32-O7I"/>
                         <outlet property="tvMeaning" destination="5Id-3t-9nm" id="c2n-ah-P55"/>
                         <outlet property="tvWord" destination="mUc-rZ-SWY" id="c05-iB-Hi3"/>
@@ -225,6 +226,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t21-GI-c4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1792.8" y="122.78860569715144"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="OnV-e0-ZNd">
+            <objects>
+                <viewController id="Wyq-Nr-f5Z" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qw2-ds-tZT"/>
+                        <viewControllerLayoutGuide type="bottom" id="QEN-oJ-sCE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rTD-LS-gEa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J8T-o9-jKL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2524" y="123"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JFt-dZ-Mxj">

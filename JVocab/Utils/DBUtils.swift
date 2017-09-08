@@ -59,6 +59,15 @@ class DBUtils {
         return results
     }
     
+    func getTranslate(_ word: Word) -> String {
+        var value = [String]()
+        let kanjies = word.kanjis?.allObjects as! [Kanji]
+        for kanji in kanjies {
+            value.append(kanji.meaning!)
+        }
+        return value.joined(separator: ",")
+    }
+    
     func getKanjiDB(_ word: Word) -> [Kanji] {
         guard let kanjiSet = word.kanjis else {
             return [Kanji]()

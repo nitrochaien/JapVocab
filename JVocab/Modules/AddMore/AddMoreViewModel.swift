@@ -9,7 +9,6 @@
 import UIKit
 
 class AddMoreViewModel {
-    var editWord = false
     var name = ""
     var meaning = ""
     
@@ -68,19 +67,5 @@ class AddMoreViewModel {
             }
         }
         return false
-    }
-
-    func setEdit(_ name: String, meaning: String) {
-        editWord = true
-        self.name = name
-        self.meaning = meaning
-    }
-    
-    func isEditWord() -> Bool {
-        return editWord
-    }
-    
-    func resetState() {
-        editWord = false
     }
 }

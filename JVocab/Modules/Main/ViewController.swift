@@ -89,7 +89,6 @@ class ViewController: UIViewController {
     
     @IBAction func onAdd(_ sender: Any) {
         showAddScreen()
-//        showAddAlert()
     }
     
     func showAddScreen() {
@@ -100,36 +99,6 @@ class ViewController: UIViewController {
             addController.delegate = self
             navigationController?.pushViewController(addController, animated: true)
         }
-    }
-    
-//    func showEditScreen(_ word: Word) {
-//        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-//        let controller = storyBoard.instantiateViewController(withIdentifier: "AddMoreViewController")
-//        if controller is AddMoreViewController {
-//            let addController = controller as! AddMoreViewController
-//            addController.delegate = self
-//            addController.setEdit(name, definition: definition, type: type)
-//            navigationController?.pushViewController(addController, animated: true)
-//        }
-//    }
-    
-    func showAddAlert() {
-        let alert = UIAlertController(title: "New word", message: "Add a word", preferredStyle: .alert)
-        
-        alert.addTextField { (textField) in
-            textField.placeholder = "word"
-        }
-        alert.addTextField { (textField) in
-            textField.placeholder = "definition"
-        }
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-            _ = alert?.textFields![0]
-            _ = alert?.textFields![1]
-        }))
-        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     func refreshUI() {
@@ -166,10 +135,12 @@ extension ViewController : IAddMore {
 
 extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell.init(style: .default, reuseIdentifier: "cell")
+        let cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "cell")
         cell.selectionStyle = .none
         let word = model.words[indexPath.row]
         cell.textLabel?.text = word.word
+        cell.textLabel?.textColor = UIColor.red
+        cell.detailTextLabel?.text = DBUtils.current.getTranslate(word)
         
         return cell
     }
@@ -189,9 +160,6 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let word = model.getMeaningFrom(indexPath)
-//        showEditScreen(word)
-        
         let word = model.words[indexPath.row]
         print("word: \(word.word!)")
         let kanjies = word.kanjis?.allObjects as! [Kanji]

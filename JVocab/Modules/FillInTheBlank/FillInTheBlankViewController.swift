@@ -65,7 +65,6 @@ class FillInTheBlankViewController: UIViewController {
         for view in viewAnswer.subviews {
             view.removeFromSuperview()
         }
-        
         let split = correctAnswer.splitCharacter()
         let count = split.count
         let space: CGFloat = 16

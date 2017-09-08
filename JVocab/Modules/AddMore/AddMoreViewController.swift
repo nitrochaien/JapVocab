@@ -13,12 +13,12 @@ protocol IAddMore {
 }
 
 class AddMoreViewController: UIViewController {
-    
     @IBOutlet weak var tvWord: UITextField!
     @IBOutlet weak var tvMeaning: UITextField!
     @IBOutlet var tvKanji: UITextField!
     @IBOutlet weak var button: UIButton!
     @IBOutlet var labelAlert: UILabel!
+    @IBOutlet var scrollView: UIScrollView!
     
     let model = AddMoreViewModel()
     var delegate: IAddMore!
@@ -26,27 +26,24 @@ class AddMoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if model.isEditWord() {
-//            tvWord.text = model.getItemEditName()
-//            tvMeaning.text = model.getItemEditmeaning()
-//            title = "Edit"
-//        } else {
-//            title = "Add new"
-//        }
-        
         button.borderAndCorner()
         labelAlert.isHidden = true
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(showAlertEnterKanji), name: AddMoreViewModel.enterKanjiNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(wordIsSaved), name: AddMoreViewModel.savedWordNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: AddMoreViewModel.enterKanjiNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: AddMoreViewModel.savedWordNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -54,7 +51,6 @@ class AddMoreViewController: UIViewController {
         
         if delegate != nil {
             delegate.onReturnToMainViewController()
-            model.resetState()
         }
     }
     
@@ -70,11 +66,9 @@ class AddMoreViewController: UIViewController {
         
         //check if meaning is existed
         if model.isExisted(meaning) {
-            if model.isEditWord() {
-                if model.name == word && model.meaning == meaning {
-                    navigationController?.popViewController(animated: true)
-                    return
-                }
+            if model.name == word && model.meaning == meaning {
+                navigationController?.popViewController(animated: true)
+                return
             }
             return
         }
@@ -94,10 +88,6 @@ class AddMoreViewController: UIViewController {
         tvWord.becomeFirstResponder()
     }
     
-    func setEdit(_ name: String, meaning: String) {
-        model.setEdit(name, meaning: meaning)
-    }
-    
     func showEmptyInputAlert() {
         labelAlert.text = "Please enter both 'word' and 'meaning' to save."
         labelAlert.isHidden = false
@@ -115,10 +105,32 @@ class AddMoreViewController: UIViewController {
     }
     
     func wordIsSaved() {
-        if model.isEditWord() {
-            navigationController?.popViewController(animated: true)
-        } else {
-            updateWordIsSavedUI()
-        }
+        updateWordIsSavedUI()
+    }
+}
+
+extension AddMoreViewController {
+    func keyboardWillShow(withNotification notification: Notification) {
+        var userInfo = notification.userInfo!
+        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        var contentInset:UIEdgeInsets = self.scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
+    }
+    
+    func keyboardWillHide(withNotification notification: Notification) {
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

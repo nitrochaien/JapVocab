@@ -20,6 +20,8 @@
 		ED4670891F4FBE1E00533EBE /* ic_menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4670861F4FBE1E00533EBE /* ic_menu@3x.png */; };
 		ED50453F1F60E98700087493 /* Quiz.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED50453E1F60E98700087493 /* Quiz.storyboard */; };
 		ED5045411F60F91200087493 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5045401F60F91200087493 /* UIButton+Extension.swift */; };
+		ED7112BE1F627D7D002DFE13 /* WordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7112BD1F627D7D002DFE13 /* WordDetailViewController.swift */; };
+		ED7112C01F628011002DFE13 /* WordDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7112BF1F628011002DFE13 /* WordDetailViewModel.swift */; };
 		ED77784B1F56676300FC6C2C /* icon_kanji@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7778451F56676300FC6C2C /* icon_kanji@1x.png */; };
 		ED77784C1F56676300FC6C2C /* icon_kanji@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7778461F56676300FC6C2C /* icon_kanji@2x.png */; };
 		ED77784D1F56676300FC6C2C /* icon_kanji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7778471F56676300FC6C2C /* icon_kanji@3x.png */; };
@@ -72,6 +74,8 @@
 		ED4670861F4FBE1E00533EBE /* ic_menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_menu@3x.png"; sourceTree = "<group>"; };
 		ED50453E1F60E98700087493 /* Quiz.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Quiz.storyboard; sourceTree = "<group>"; };
 		ED5045401F60F91200087493 /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		ED7112BD1F627D7D002DFE13 /* WordDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordDetailViewController.swift; sourceTree = "<group>"; };
+		ED7112BF1F628011002DFE13 /* WordDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordDetailViewModel.swift; sourceTree = "<group>"; };
 		ED7778451F56676300FC6C2C /* icon_kanji@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_kanji@1x.png"; sourceTree = "<group>"; };
 		ED7778461F56676300FC6C2C /* icon_kanji@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_kanji@2x.png"; sourceTree = "<group>"; };
 		ED7778471F56676300FC6C2C /* icon_kanji@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_kanji@3x.png"; sourceTree = "<group>"; };
@@ -168,6 +172,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		ED7112BC1F627D63002DFE13 /* WordDetail */ = {
+			isa = PBXGroup;
+			children = (
+				ED7112BD1F627D7D002DFE13 /* WordDetailViewController.swift */,
+				ED7112BF1F628011002DFE13 /* WordDetailViewModel.swift */,
+			);
+			path = WordDetail;
+			sourceTree = "<group>";
+		};
 		ED874BEB1F501F7E0007DB05 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +198,7 @@
 				ED3BE8C11F57B32C003D7F76 /* FillInTheBlank */,
 				ED874BF11F50229F0007DB05 /* Main */,
 				ED4597F11F53C0D1002A7728 /* MultipleChoices */,
+				ED7112BC1F627D63002DFE13 /* WordDetail */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -418,10 +432,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED1412681F50371A00E2A18B /* UIViewController+Extension.swift in Sources */,
+				ED7112C01F628011002DFE13 /* WordDetailViewModel.swift in Sources */,
 				ED874BF41F50229F0007DB05 /* ViewController.swift in Sources */,
 				ED4597F71F53D799002A7728 /* MultipleChoicesViewModel.swift in Sources */,
 				ED8E90701F4EC5A0009C095C /* AppDelegate.swift in Sources */,
 				ED4597F91F53EFDC002A7728 /* MultipleChoicesObj.swift in Sources */,
+				ED7112BE1F627D7D002DFE13 /* WordDetailViewController.swift in Sources */,
 				ED5045411F60F91200087493 /* UIButton+Extension.swift in Sources */,
 				ED3BE8C51F57B362003D7F76 /* FillInTheBlankViewModel.swift in Sources */,
 				ED3637671F4FB53B0046372A /* SlideMenuController.swift in Sources */,

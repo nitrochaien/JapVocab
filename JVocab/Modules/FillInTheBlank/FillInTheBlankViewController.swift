@@ -18,6 +18,8 @@ class FillInTheBlankViewController: UIViewController {
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var viewAnswerHeight: NSLayoutConstraint!
     @IBOutlet weak var labelCorrectAnswer: UILabel!
+    @IBOutlet var viewSelection: UIView!
+    @IBOutlet var viewSelectionHeight: NSLayoutConstraint!
     
     let model = FillInTheBlankViewModel()
     let navigationBarHeight:CGFloat = 64
@@ -47,6 +49,10 @@ class FillInTheBlankViewController: UIViewController {
     }
     
     func initData() {
+        if model.noWords() {
+            alert("You have no words!")
+            navigationController?.popViewController(animated: true)
+        }
         generateQuiz()
     }
     
@@ -59,6 +65,7 @@ class FillInTheBlankViewController: UIViewController {
         labelQuestion.text = object.question
         correctAnswer = object.answer!
         createAnswerView()
+        createSelectionView()
     }
     
     func createAnswerView() {
@@ -105,7 +112,7 @@ class FillInTheBlankViewController: UIViewController {
             let border = CALayer()
             let width = CGFloat(2.0)
             border.borderColor = UIColor.black.cgColor
-            border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:  textField.frame.size.width, height: textField.frame.size.height)
+            border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width: textField.frame.size.width, height: textField.frame.size.height)
             
             border.borderWidth = width
             textField.layer.addSublayer(border)
@@ -115,6 +122,40 @@ class FillInTheBlankViewController: UIViewController {
         }
         let heightSum = (space + height) * CGFloat(row) + space * 3
         viewAnswerHeight.constant = heightSum
+    }
+    
+    func createSelectionView() {
+        for view in viewSelection.subviews {
+            view.removeFromSuperview()
+        }
+        let split = correctAnswer.splitCharacter()
+        let count = split.count
+        let numberOfSelections = count >= 10 ? 15 : 10
+        var row = -1
+        let height: CGFloat = 30
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        let space: CGFloat = 8
+        let spaces = space * 6
+        let fullRowWidth = UIScreen.main.bounds.width - spaces
+        let width: CGFloat = fullRowWidth / 5
+        
+        for index in 0...numberOfSelections-1 {
+            if index % 5 == 0 {
+                y = (space + height) * CGFloat(index / 5) + space
+                row += 1
+                x = space
+            } else {
+                x += width + space
+            }
+            let button = UIButton(frame: CGRect.init(x: x, y: y, width: width, height: height))
+            button.selectionStyle()
+            
+            viewSelection.addSubview(button)
+        }
+        
+        let heightSum = (space + height) * CGFloat(row) + space * 3
+        viewSelectionHeight.constant = heightSum
     }
     
     @IBAction func onClickSkip(_ sender: Any) {

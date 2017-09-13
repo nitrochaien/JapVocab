@@ -15,4 +15,10 @@ extension UIButton {
         self.layer.borderColor = UIColor.blue.cgColor
         self.layer.borderWidth = 1
     }
+    
+    func selectionStyle() {
+        self.layer.cornerRadius = 15
+        self.backgroundColor = UIColor.blue
+        self.setTitleColor(UIColor.white, for: .normal)
+    }
 }

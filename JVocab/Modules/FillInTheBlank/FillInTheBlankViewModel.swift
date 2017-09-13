@@ -37,4 +37,25 @@ class FillInTheBlankViewModel {
     func reset() {
         currentList = DBUtils.current.fetchKanjies()
     }
+    
+    func noWords() -> Bool {
+        return DBUtils.current.fetchKanjies().isEmpty
+    }
+    
+    func generateSelections(_ input: [String], num: Int) -> [String] {
+        var result = [String]()
+        result.append(contentsOf: input)
+        let count = num - result.count
+        var list = DBUtils.current.getAllKana()
+        for _ in 0...count {
+            let randomQuizIndex = Int(arc4random_uniform(UInt32(list.count)))
+            let kana = list.remove(at: randomQuizIndex)
+            result.append(kana)
+        }
+        var kana = ""
+        repeat {
+            let randomQuizIndex = Int(arc4random_uniform(UInt32(list.count)))
+            kana = list.remove(at: randomQuizIndex)
+        } while !input.contains(kana) && list
+    }
 }

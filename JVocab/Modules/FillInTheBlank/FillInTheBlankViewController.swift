@@ -17,16 +17,14 @@ class FillInTheBlankViewController: UIViewController {
     @IBOutlet var btnNextQuestion: UIButton!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var viewAnswerHeight: NSLayoutConstraint!
-    @IBOutlet weak var labelCorrectAnswer: UILabel!
     @IBOutlet var viewSelection: UIView!
     @IBOutlet var viewSelectionHeight: NSLayoutConstraint!
     
     let model = FillInTheBlankViewModel()
     let navigationBarHeight:CGFloat = 64
-    var correctAnswer = ""
-    var answer = ""
     var labelResult: UILabel!
-    var inputViews = [UITextField]()
+    var answerViews = [UIButton]()
+    var selectionViews = [UIButton]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +37,6 @@ class FillInTheBlankViewController: UIViewController {
         btnAnswer.borderAndCorner()
         btnNextQuestion.borderAndCorner()
         btnSubmit.borderAndCorner()
-        labelCorrectAnswer.isHidden = true
         
         labelResult = UILabel.init(frame: CGRect.init(x: 0, y: -50, width: UIScreen.main.bounds.width, height: 50))
         labelResult.font = UIFont.init(name: "System", size: 30)
@@ -63,7 +60,6 @@ class FillInTheBlankViewController: UIViewController {
         }
         let object = model.generateQuestion()
         labelQuestion.text = object.question
-        correctAnswer = object.answer!
         createAnswerView()
         createSelectionView()
     }
@@ -72,13 +68,15 @@ class FillInTheBlankViewController: UIViewController {
         for view in viewAnswer.subviews {
             view.removeFromSuperview()
         }
-        let split = correctAnswer.splitCharacter()
+        answerViews.removeAll()
+        
+        let split = model.correctAnswerToStringArray()
         let count = split.count
         let space: CGFloat = 16
         let spaces = space * 6
         let fullRowWidth = UIScreen.main.bounds.width - spaces
         let width: CGFloat = fullRowWidth / 5
-        let height: CGFloat = 20
+        let height: CGFloat = 30
         var x: CGFloat = 0
         var y: CGFloat = 0
         var row = -1
@@ -100,25 +98,25 @@ class FillInTheBlankViewController: UIViewController {
             } else {
                 x += width + space
             }
-            let textField = UITextField.init(frame: CGRect.init(x: x, y: y, width: width, height: height))
-            textField.backgroundColor = UIColor.white
-            textField.delegate = self
-            textField.borderStyle = .none
-            textField.autocapitalizationType = .none
-            textField.autocorrectionType = .no
-            textField.tag = index
-            inputViews.append(textField)
+            let button = UIButton.init(frame: CGRect.init(x: x, y: y, width: width, height: height))
+            button.backgroundColor = UIColor.white
+            button.setTitleColor(UIColor.black, for: .normal)
+            button.contentHorizontalAlignment = .center
+            button.contentVerticalAlignment = .center
+            button.tag = 0
+            button.addTarget(self, action: #selector(tapAnswer), for: .touchUpInside)
+            answerViews.append(button)
             
             let border = CALayer()
             let width = CGFloat(2.0)
             border.borderColor = UIColor.black.cgColor
-            border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width: textField.frame.size.width, height: textField.frame.size.height)
+            border.frame = CGRect(x: 0, y: button.frame.size.height - width, width: button.frame.size.width, height: button.frame.size.height)
             
             border.borderWidth = width
-            textField.layer.addSublayer(border)
-            textField.layer.masksToBounds = true
+            button.layer.addSublayer(border)
+            button.layer.masksToBounds = true
             
-            viewAnswer.addSubview(textField)
+            viewAnswer.addSubview(button)
         }
         let heightSum = (space + height) * CGFloat(row) + space * 3
         viewAnswerHeight.constant = heightSum
@@ -128,7 +126,9 @@ class FillInTheBlankViewController: UIViewController {
         for view in viewSelection.subviews {
             view.removeFromSuperview()
         }
-        let split = correctAnswer.splitCharacter()
+        selectionViews.removeAll()
+        
+        let split = model.correctAnswerToStringArray()
         let count = split.count
         let numberOfSelections = count >= 10 ? 15 : 10
         var row = -1
@@ -139,6 +139,7 @@ class FillInTheBlankViewController: UIViewController {
         let spaces = space * 6
         let fullRowWidth = UIScreen.main.bounds.width - spaces
         let width: CGFloat = fullRowWidth / 5
+        let data = model.generateSelections(split, numberOfSelections: numberOfSelections - count)
         
         for index in 0...numberOfSelections-1 {
             if index % 5 == 0 {
@@ -150,11 +151,16 @@ class FillInTheBlankViewController: UIViewController {
             }
             let button = UIButton(frame: CGRect.init(x: x, y: y, width: width, height: height))
             button.selectionStyle()
+            button.setTitle(data[index], for: .normal)
+            button.setTitleColor(.white, for: .normal)
+            button.tag = index + 1
+            button.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
+            selectionViews.append(button)
             
             viewSelection.addSubview(button)
         }
         
-        let heightSum = (space + height) * CGFloat(row) + space * 3
+        let heightSum = (space + height) * CGFloat(row) + height * 2
         viewSelectionHeight.constant = heightSum
     }
     
@@ -167,15 +173,12 @@ class FillInTheBlankViewController: UIViewController {
     }
     
     @IBAction func onClickShowAnswer(_ sender: Any) {
-        labelCorrectAnswer.textColor = UIColor.purple
-        labelCorrectAnswer.isHidden = false
-        labelCorrectAnswer.text = "It's '\(correctAnswer)'"
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-            self.labelCorrectAnswer.isHidden = true
-        })
+        showResult(true, showCorrectAns: true)
     }
+    
     @IBAction func onClickSubmit(_ sender: Any) {
-        showResult(answer == correctAnswer)
+        updateAnswer()
+        showResult(model.check())
     }
     
     func showAlertReset() {
@@ -191,13 +194,18 @@ class FillInTheBlankViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func showResult(_ correct: Bool) {
+    func showResult(_ correct: Bool, showCorrectAns: Bool = false) {
         if correct {
             labelResult.textColor = UIColor.blue
             labelResult.text = "CORRECT!!"
         } else {
             labelResult.textColor = UIColor.red
             labelResult.text = "Oh no...Please try again..."
+        }
+        if showCorrectAns {
+            labelResult.textColor = UIColor.purple
+            labelResult.text = "It's '\(model.getCorrectAnswer())'"
+            labelResult.backgroundColor = UIColor.cyan
         }
         
         UIView.animate(withDuration: 0.5, animations: {
@@ -216,20 +224,43 @@ class FillInTheBlankViewController: UIViewController {
             })
         })
     }
-}
-
-extension FillInTheBlankViewController : UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        answer = ""
-        for view in inputViews {
-            answer += view.text ?? ""
+    
+    func tapAnswer(_ button: UIButton) {
+        deselectCharacter(button)
+        button.setTitle("", for: .normal)
+        button.tag = 0
+    }
+    
+    func deselectCharacter(_ button: UIButton) {
+        for selectionView in selectionViews {
+            if selectionView.tag == button.tag {
+                let title = button.title(for: .normal)
+                selectionView.setTitle(title, for: .normal)
+                return
+            }
         }
-        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
-            nextField.becomeFirstResponder()
-        } else {
-            // Not found, so remove keyboard.
-            textField.resignFirstResponder()
+    }
+    
+    func clickButton(_ button: UIButton) {
+        let title = button.title(for: .normal) ?? ""
+        if title.isEmpty {
+            return
         }
-        return true
+        
+        for answerView in answerViews {
+            if answerView.tag == 0 {
+                answerView.setTitle(title, for: .normal)
+                answerView.tag = button.tag
+                button.setTitle("", for: .normal)
+                return
+            }
+        }
+    }
+    
+    func updateAnswer() {
+        model.answer = ""
+        for answerView in answerViews {
+            model.answer += answerView.title(for: .normal) ?? ""
+        }
     }
 }

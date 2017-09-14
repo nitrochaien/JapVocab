@@ -11,6 +11,9 @@ import UIKit
 class FillInTheBlankViewModel {
     var currentList = [Kanji]()
     
+    fileprivate var correctAnswer = ""
+    var answer = ""
+    
     init() {
         currentList = DBUtils.current.fetchKanjies()
     }
@@ -24,6 +27,8 @@ class FillInTheBlankViewModel {
         if let word = kanjiDB.word {
             answer = word.word!
         }
+        correctAnswer = answer
+        
         let obj = FillInTheBlankObj()
         obj.question = question
         obj.answer = answer
@@ -42,20 +47,27 @@ class FillInTheBlankViewModel {
         return DBUtils.current.fetchKanjies().isEmpty
     }
     
-    func generateSelections(_ input: [String], num: Int) -> [String] {
+    func generateSelections(_ input: [String], numberOfSelections: Int) -> [String] {
         var result = [String]()
         result.append(contentsOf: input)
-        let count = num - result.count
-        var list = DBUtils.current.getAllKana()
-        for _ in 0...count {
-            let randomQuizIndex = Int(arc4random_uniform(UInt32(list.count)))
-            let kana = list.remove(at: randomQuizIndex)
-            result.append(kana)
+        let list = DBUtils.current.getAllKana()
+        let filtered = Set(list).subtracting(input)
+        let shuffledFilter = filtered.shuffled()
+        for i in 0...numberOfSelections - 1 {
+            result.append(shuffledFilter[i])
         }
-        var kana = ""
-        repeat {
-            let randomQuizIndex = Int(arc4random_uniform(UInt32(list.count)))
-            kana = list.remove(at: randomQuizIndex)
-        } while !input.contains(kana) && list
+        return result.shuffled()
+    }
+    
+    func check() -> Bool {
+        return answer == correctAnswer
+    }
+
+    func correctAnswerToStringArray() -> [String] {
+        return correctAnswer.splitCharacter()
+    }
+    
+    func getCorrectAnswer() -> String {
+        return correctAnswer
     }
 }

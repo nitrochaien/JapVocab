@@ -41,6 +41,9 @@
 		ED8E907D1F4EC5A0009C095C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED8E907B1F4EC5A0009C095C /* LaunchScreen.storyboard */; };
 		ED8E90881F4EC5A0009C095C /* JVocabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8E90871F4EC5A0009C095C /* JVocabTests.swift */; };
 		ED8E90931F4EC5A0009C095C /* JVocabUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8E90921F4EC5A0009C095C /* JVocabUITests.swift */; };
+		EDAD61E61F68ED2400A48C4D /* Sequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAD61E51F68ED2400A48C4D /* Sequence+Extension.swift */; };
+		EDAD61E81F69180A00A48C4D /* MutableCollection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAD61E71F69180A00A48C4D /* MutableCollection+Extension.swift */; };
+		EDC9D48C1F6A1CDA003F35CD /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC9D48B1F6A1CDA003F35CD /* Collection+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +104,9 @@
 		ED8E908E1F4EC5A0009C095C /* JVocabUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JVocabUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED8E90921F4EC5A0009C095C /* JVocabUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JVocabUITests.swift; sourceTree = "<group>"; };
 		ED8E90941F4EC5A0009C095C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDAD61E51F68ED2400A48C4D /* Sequence+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Extension.swift"; sourceTree = "<group>"; };
+		EDAD61E71F69180A00A48C4D /* MutableCollection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MutableCollection+Extension.swift"; sourceTree = "<group>"; };
+		EDC9D48B1F6A1CDA003F35CD /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +193,9 @@
 				ED874BEC1F501FB70007DB05 /* String+Extension.swift */,
 				ED1412671F50371A00E2A18B /* UIViewController+Extension.swift */,
 				ED5045401F60F91200087493 /* UIButton+Extension.swift */,
+				EDAD61E51F68ED2400A48C4D /* Sequence+Extension.swift */,
+				EDAD61E71F69180A00A48C4D /* MutableCollection+Extension.swift */,
+				EDC9D48B1F6A1CDA003F35CD /* Collection+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -442,7 +451,10 @@
 				ED3BE8C51F57B362003D7F76 /* FillInTheBlankViewModel.swift in Sources */,
 				ED3637671F4FB53B0046372A /* SlideMenuController.swift in Sources */,
 				ED874BF31F50229F0007DB05 /* AddMoreViewController.swift in Sources */,
+				EDC9D48C1F6A1CDA003F35CD /* Collection+Extension.swift in Sources */,
 				ED2614271F61021900F36321 /* FillInTheBlankObj.swift in Sources */,
+				EDAD61E81F69180A00A48C4D /* MutableCollection+Extension.swift in Sources */,
+				EDAD61E61F68ED2400A48C4D /* Sequence+Extension.swift in Sources */,
 				ED874BED1F501FB70007DB05 /* String+Extension.swift in Sources */,
 				ED8E90781F4EC5A0009C095C /* JVocab.xcdatamodeld in Sources */,
 				ED4597F51F53C6AE002A7728 /* MultipleChoicesViewController.swift in Sources */,

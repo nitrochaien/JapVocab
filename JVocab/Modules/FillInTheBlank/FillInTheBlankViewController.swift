@@ -49,6 +49,7 @@ class FillInTheBlankViewController: UIViewController {
         if model.noWords() {
             alert("You have no words!")
             navigationController?.popViewController(animated: true)
+            return
         }
         generateQuiz()
     }

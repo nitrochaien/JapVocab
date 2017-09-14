@@ -74,7 +74,8 @@ class MultipleChoicesViewController: UIViewController {
         model.setList()
         
         guard model.enoughWords() else {
-            showAlertCantProceed()
+            alert("You must have at least 4 words to do this test.")
+            self.navigationController?.popViewController(animated: true)
             return
         }
         labelRecord.text = "Correct answer: 0/\(model.getCount())"
@@ -178,15 +179,6 @@ class MultipleChoicesViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }))
 
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func showAlertCantProceed() {
-        let alert = UIAlertController(title: "Alert", message: "You must have at least 4 words to do this test.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action) in
-            self.navigationController?.popViewController(animated: true)
-        }))
-        
         self.present(alert, animated: true, completion: nil)
     }
     

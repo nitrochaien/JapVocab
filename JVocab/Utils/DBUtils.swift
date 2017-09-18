@@ -94,8 +94,12 @@ class DBUtils {
         return result
     }
     
-    func getAllKana() -> [String] {
-        return DBData.instance.higarana + DBData.instance.katakana
+    func getAllHira() -> [String] {
+        return DBData.instance.higarana
+    }
+    
+    func getAllKata() -> [String] {
+        return DBData.instance.katakana
     }
     
     func getContext() -> NSManagedObjectContext {

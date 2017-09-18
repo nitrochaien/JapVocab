@@ -50,7 +50,12 @@ class FillInTheBlankViewModel {
     func generateSelections(_ input: [String], numberOfSelections: Int) -> [String] {
         var result = [String]()
         result.append(contentsOf: input)
-        let list = DBUtils.current.getAllKana()
+        var list = [String]()
+        if correctAnswer.isHiragana {
+            list = DBUtils.current.getAllHira()
+        } else {
+            list = DBUtils.current.getAllKata()
+        }
         let filtered = Set(list).subtracting(input)
         let shuffledFilter = filtered.shuffled()
         for i in 0...numberOfSelections - 1 {

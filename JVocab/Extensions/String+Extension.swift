@@ -16,4 +16,8 @@ extension String {
         }
         return split
     }
+    
+    var isHiragana: Bool {
+        return self.range(of: "([ぁ-ん])", options: .regularExpression) != nil
+    }
 }

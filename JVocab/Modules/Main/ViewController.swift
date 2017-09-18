@@ -161,10 +161,13 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let word = model.words[indexPath.row]
-        print("word: \(word.word!)")
-        let kanjies = word.kanjis?.allObjects as! [Kanji]
-        for kanji in kanjies {
-            print("kanji: \(kanji.kanji!), meaning: \(kanji.meaning!)")
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let controller = storyBoard.instantiateViewController(withIdentifier: "WordDetailViewController")
+        if controller is WordDetailViewController {
+            let detailController = controller as! WordDetailViewController
+            detai
+            navigationController?.pushViewController(detailController, animated: true)
         }
     }
 }

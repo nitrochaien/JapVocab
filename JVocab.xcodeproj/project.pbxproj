@@ -45,6 +45,9 @@
 		EDAD61E61F68ED2400A48C4D /* Sequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAD61E51F68ED2400A48C4D /* Sequence+Extension.swift */; };
 		EDAD61E81F69180A00A48C4D /* MutableCollection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAD61E71F69180A00A48C4D /* MutableCollection+Extension.swift */; };
 		EDC9D48C1F6A1CDA003F35CD /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC9D48B1F6A1CDA003F35CD /* Collection+Extension.swift */; };
+		EDE79B2C1F6F75EC00ABF6BC /* icon_speaker@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDE79B291F6F75EC00ABF6BC /* icon_speaker@1x.png */; };
+		EDE79B2D1F6F75EC00ABF6BC /* icon_speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDE79B2A1F6F75EC00ABF6BC /* icon_speaker@2x.png */; };
+		EDE79B2E1F6F75EC00ABF6BC /* icon_speaker@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDE79B2B1F6F75EC00ABF6BC /* icon_speaker@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +112,10 @@
 		EDAD61E51F68ED2400A48C4D /* Sequence+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Extension.swift"; sourceTree = "<group>"; };
 		EDAD61E71F69180A00A48C4D /* MutableCollection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MutableCollection+Extension.swift"; sourceTree = "<group>"; };
 		EDC9D48B1F6A1CDA003F35CD /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		EDE79B271F6F73B900ABF6BC /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
+		EDE79B291F6F75EC00ABF6BC /* icon_speaker@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_speaker@1x.png"; sourceTree = "<group>"; };
+		EDE79B2A1F6F75EC00ABF6BC /* icon_speaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_speaker@2x.png"; sourceTree = "<group>"; };
+		EDE79B2B1F6F75EC00ABF6BC /* icon_speaker@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_speaker@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,15 +174,18 @@
 		ED4670831F4FBE1E00533EBE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ED7778451F56676300FC6C2C /* icon_kanji@1x.png */,
-				ED7778461F56676300FC6C2C /* icon_kanji@2x.png */,
-				ED7778471F56676300FC6C2C /* icon_kanji@3x.png */,
-				ED7778481F56676300FC6C2C /* icon_words@1x.png */,
-				ED7778491F56676300FC6C2C /* icon_words@2x.png */,
-				ED77784A1F56676300FC6C2C /* icon_words@3x.png */,
 				ED4670841F4FBE1E00533EBE /* ic_menu@1x.png */,
 				ED4670851F4FBE1E00533EBE /* ic_menu@2x.png */,
 				ED4670861F4FBE1E00533EBE /* ic_menu@3x.png */,
+				ED7778451F56676300FC6C2C /* icon_kanji@1x.png */,
+				ED7778461F56676300FC6C2C /* icon_kanji@2x.png */,
+				ED7778471F56676300FC6C2C /* icon_kanji@3x.png */,
+				EDE79B291F6F75EC00ABF6BC /* icon_speaker@1x.png */,
+				EDE79B2A1F6F75EC00ABF6BC /* icon_speaker@2x.png */,
+				EDE79B2B1F6F75EC00ABF6BC /* icon_speaker@3x.png */,
+				ED7778481F56676300FC6C2C /* icon_words@1x.png */,
+				ED7778491F56676300FC6C2C /* icon_words@2x.png */,
+				ED77784A1F56676300FC6C2C /* icon_words@3x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -248,6 +258,7 @@
 				ED8E90861F4EC5A0009C095C /* JVocabTests */,
 				ED8E90911F4EC5A0009C095C /* JVocabUITests */,
 				ED8E906D1F4EC5A0009C095C /* Products */,
+				EDE79B261F6F73B900ABF6BC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -296,6 +307,14 @@
 				ED8E90941F4EC5A0009C095C /* Info.plist */,
 			);
 			path = JVocabUITests;
+			sourceTree = "<group>";
+		};
+		EDE79B261F6F73B900ABF6BC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDE79B271F6F73B900ABF6BC /* Speech.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,12 +429,15 @@
 				ED4670891F4FBE1E00533EBE /* ic_menu@3x.png in Resources */,
 				ED8E907D1F4EC5A0009C095C /* LaunchScreen.storyboard in Resources */,
 				ED8E907A1F4EC5A0009C095C /* Assets.xcassets in Resources */,
+				EDE79B2E1F6F75EC00ABF6BC /* icon_speaker@3x.png in Resources */,
 				ED77784C1F56676300FC6C2C /* icon_kanji@2x.png in Resources */,
 				ED77784D1F56676300FC6C2C /* icon_kanji@3x.png in Resources */,
 				ED4670871F4FBE1E00533EBE /* ic_menu@1x.png in Resources */,
+				EDE79B2D1F6F75EC00ABF6BC /* icon_speaker@2x.png in Resources */,
 				ED77784F1F56676300FC6C2C /* icon_words@2x.png in Resources */,
 				ED77784E1F56676300FC6C2C /* icon_words@1x.png in Resources */,
 				ED77784B1F56676300FC6C2C /* icon_kanji@1x.png in Resources */,
+				EDE79B2C1F6F75EC00ABF6BC /* icon_speaker@1x.png in Resources */,
 				ED8E90751F4EC5A0009C095C /* Main.storyboard in Resources */,
 				ED7778501F56676300FC6C2C /* icon_words@3x.png in Resources */,
 				ED4670881F4FBE1E00533EBE /* ic_menu@2x.png in Resources */,

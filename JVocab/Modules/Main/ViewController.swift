@@ -166,7 +166,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         let controller = storyBoard.instantiateViewController(withIdentifier: "WordDetailViewController")
         if controller is WordDetailViewController {
             let detailController = controller as! WordDetailViewController
-            detai
+            detailController.word = word
             navigationController?.pushViewController(detailController, animated: true)
         }
     }

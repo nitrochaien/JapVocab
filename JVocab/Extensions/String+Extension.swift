@@ -20,4 +20,8 @@ extension String {
     var isHiragana: Bool {
         return self.range(of: "([ぁ-ん])", options: .regularExpression) != nil
     }
+    
+    var isJapanese: Bool {
+        return self.range(of: "([ぁ-んァ-ン])", options: .regularExpression) != nil
+    }
 }

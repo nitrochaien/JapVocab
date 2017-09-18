@@ -10,9 +10,9 @@ import UIKit
 import Foundation
 
 extension UIButton {
-    func borderAndCorner() {
+    func borderAndCorner(_ color: UIColor = .blue) {
         self.layer.cornerRadius = 5
-        self.layer.borderColor = UIColor.blue.cgColor
+        self.layer.borderColor = color.cgColor
         self.layer.borderWidth = 1
     }
     

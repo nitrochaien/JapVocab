@@ -1,0 +1,2 @@
+# JapVocab
+Japanese vocabulary helper

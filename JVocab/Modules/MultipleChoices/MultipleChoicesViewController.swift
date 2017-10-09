@@ -151,7 +151,7 @@ class MultipleChoicesViewController: UIViewController {
         btnAns4.isEnabled = state
     }
     
-    func updateCorrectAns() {
+    @objc func updateCorrectAns() {
         let correctAns = model.getCorrectAnswer()
         if correctAns == 1 {
             labelRecord.text = "Correct answer: \(correctAns)/\(model.getCount())"
@@ -160,11 +160,11 @@ class MultipleChoicesViewController: UIViewController {
         }
     }
     
-    func onSelect(_ sender: UIButton) {
+    @objc func onSelect(_ sender: UIButton) {
         showResult(sender.tag == 1)
     }
     
-    func onRefreshQuiz(_ sender: UIButton) {
+    @objc func onRefreshQuiz(_ sender: UIButton) {
         autoGenerateQuiz()
     }
     

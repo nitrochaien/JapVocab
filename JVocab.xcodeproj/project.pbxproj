@@ -44,7 +44,6 @@
 		ED8E90931F4EC5A0009C095C /* JVocabUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8E90921F4EC5A0009C095C /* JVocabUITests.swift */; };
 		EDAD61E61F68ED2400A48C4D /* Sequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAD61E51F68ED2400A48C4D /* Sequence+Extension.swift */; };
 		EDAD61E81F69180A00A48C4D /* MutableCollection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAD61E71F69180A00A48C4D /* MutableCollection+Extension.swift */; };
-		EDC9D48C1F6A1CDA003F35CD /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC9D48B1F6A1CDA003F35CD /* Collection+Extension.swift */; };
 		EDE79B2C1F6F75EC00ABF6BC /* icon_speaker@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDE79B291F6F75EC00ABF6BC /* icon_speaker@1x.png */; };
 		EDE79B2D1F6F75EC00ABF6BC /* icon_speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDE79B2A1F6F75EC00ABF6BC /* icon_speaker@2x.png */; };
 		EDE79B2E1F6F75EC00ABF6BC /* icon_speaker@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDE79B2B1F6F75EC00ABF6BC /* icon_speaker@3x.png */; };
@@ -111,7 +110,6 @@
 		ED8E90941F4EC5A0009C095C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDAD61E51F68ED2400A48C4D /* Sequence+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Extension.swift"; sourceTree = "<group>"; };
 		EDAD61E71F69180A00A48C4D /* MutableCollection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MutableCollection+Extension.swift"; sourceTree = "<group>"; };
-		EDC9D48B1F6A1CDA003F35CD /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		EDE79B271F6F73B900ABF6BC /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 		EDE79B291F6F75EC00ABF6BC /* icon_speaker@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_speaker@1x.png"; sourceTree = "<group>"; };
 		EDE79B2A1F6F75EC00ABF6BC /* icon_speaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_speaker@2x.png"; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 				ED5045401F60F91200087493 /* UIButton+Extension.swift */,
 				EDAD61E51F68ED2400A48C4D /* Sequence+Extension.swift */,
 				EDAD61E71F69180A00A48C4D /* MutableCollection+Extension.swift */,
-				EDC9D48B1F6A1CDA003F35CD /* Collection+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -380,21 +377,24 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = NamDV;
 				TargetAttributes = {
 					ED8E906B1F4EC5A0009C095C = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 4D947669QT;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
 					ED8E90821F4EC5A0009C095C = {
 						CreatedOnToolsVersion = 8.3;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = ED8E906B1F4EC5A0009C095C;
 					};
 					ED8E908D1F4EC5A0009C095C = {
 						CreatedOnToolsVersion = 8.3;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = ED8E906B1F4EC5A0009C095C;
 					};
@@ -476,7 +476,6 @@
 				ED3BE8C51F57B362003D7F76 /* FillInTheBlankViewModel.swift in Sources */,
 				ED3637671F4FB53B0046372A /* SlideMenuController.swift in Sources */,
 				ED874BF31F50229F0007DB05 /* AddMoreViewController.swift in Sources */,
-				EDC9D48C1F6A1CDA003F35CD /* Collection+Extension.swift in Sources */,
 				ED2614271F61021900F36321 /* FillInTheBlankObj.swift in Sources */,
 				EDAD61E81F69180A00A48C4D /* MutableCollection+Extension.swift in Sources */,
 				EDAD61E61F68ED2400A48C4D /* Sequence+Extension.swift in Sources */,
@@ -552,7 +551,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -560,7 +561,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -583,7 +588,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -603,7 +608,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -611,7 +618,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -628,7 +639,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -644,12 +655,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 4D947669QT;
 				INFOPLIST_FILE = JVocab/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "89272da7-baeb-454e-a1eb-db509d8dea37";
 				PROVISIONING_PROFILE_SPECIFIER = "mobile dev";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -659,12 +672,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 4D947669QT;
 				INFOPLIST_FILE = JVocab/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d80748f3-d377-4f00-8ba4-1f7c9b698508";
 				PROVISIONING_PROFILE_SPECIFIER = "mobile dev";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -677,7 +692,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocabTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JVocab.app/JVocab";
 			};
 			name = Debug;
@@ -691,7 +707,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocabTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JVocab.app/JVocab";
 			};
 			name = Release;
@@ -704,7 +721,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocabUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = JVocab;
 			};
 			name = Debug;
@@ -717,7 +735,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.namdv.JVocabUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = JVocab;
 			};
 			name = Release;

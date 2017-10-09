@@ -40,7 +40,7 @@ class AddMoreViewModel {
         } else { //Otherwise, create new word
             let wordDB = Word(context: context)
             wordDB.word = word
-            wordDB.last_update = Date() as NSDate
+            wordDB.last_update = Date()
             
             wordDB.addToKanjis(newKanji)
         }

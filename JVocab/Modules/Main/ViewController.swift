@@ -79,7 +79,7 @@ class ViewController: UIViewController {
         didMove(toParentViewController: slideMenu)
     }
     
-    func handleTapMenu() {
+    @objc func handleTapMenu() {
         if slideMenu.isOpening() {
             slideMenu.hide()
         } else {
@@ -101,11 +101,11 @@ class ViewController: UIViewController {
         }
     }
     
-    func refreshUI() {
+    @objc func refreshUI() {
         tableView.reloadData()
     }
     
-    func openQuiz(_ notification: Notification) {
+    @objc func openQuiz(_ notification: Notification) {
         let userInfo = notification.userInfo!
         let index = userInfo["type"] as! QuizType
         let storyBoard = UIStoryboard.init(name: "Quiz", bundle: nil)
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func reloadList() {
+    @objc func reloadList() {
         model.reloadData()
     }
 }

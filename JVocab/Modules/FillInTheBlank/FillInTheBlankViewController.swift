@@ -226,7 +226,7 @@ class FillInTheBlankViewController: UIViewController {
         })
     }
     
-    func tapAnswer(_ button: UIButton) {
+    @objc func tapAnswer(_ button: UIButton) {
         deselectCharacter(button)
         button.setTitle("", for: .normal)
         button.tag = 0
@@ -242,7 +242,7 @@ class FillInTheBlankViewController: UIViewController {
         }
     }
     
-    func clickButton(_ button: UIButton) {
+    @objc func clickButton(_ button: UIButton) {
         let title = button.title(for: .normal) ?? ""
         if title.isEmpty {
             return

@@ -52,20 +52,15 @@ class MultipleChoicesViewModel {
     }
     
     func getCorrectQA() -> [String] {
-        var question = ""
-        var answer = ""
-        
         let randomQuizIndex = Int(arc4random_uniform(UInt32(currentList.count)))
         let kanji = currentList.remove(at: randomQuizIndex)
-        if let myKanji = kanji.kanji, let myMeaning = kanji.meaning {
-            if let word = kanji.word {
-                question = myKanji == "" ? word.word! : myKanji
+        if let answer = kanji.meaning {
+            if let question = kanji.word?.word {
+                allMeanings.append(answer)
+                return [question, answer]
             }
-            answer = myMeaning
-            allMeanings.append(myMeaning)
         }
-        
-        return [question, answer]
+        return ["", ""]
     }
     
     func generateWrongAnswer() -> String {

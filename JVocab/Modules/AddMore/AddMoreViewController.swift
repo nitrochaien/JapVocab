@@ -96,7 +96,7 @@ class AddMoreViewController: UIViewController {
         })
     }
     
-    func showAlertEnterKanji() {
+    @objc func showAlertEnterKanji() {
         labelAlert.text = "'Kanji' must not empty."
         labelAlert.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
@@ -104,13 +104,13 @@ class AddMoreViewController: UIViewController {
         })
     }
     
-    func wordIsSaved() {
+    @objc func wordIsSaved() {
         updateWordIsSavedUI()
     }
 }
 
 extension AddMoreViewController {
-    func keyboardWillShow(withNotification notification: Notification) {
+    @objc func keyboardWillShow(withNotification notification: Notification) {
         var userInfo = notification.userInfo!
         var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
@@ -120,7 +120,7 @@ extension AddMoreViewController {
         scrollView.contentInset = contentInset
     }
     
-    func keyboardWillHide(withNotification notification: Notification) {
+    @objc func keyboardWillHide(withNotification notification: Notification) {
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInset
     }
@@ -130,7 +130,7 @@ extension AddMoreViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }

@@ -68,7 +68,7 @@ class SlideMenuController: UIViewController {
         view.addGestureRecognizer(swipeLeftGesture)
     }
     
-    func handleTapGesture(tap: UITapGestureRecognizer) {
+    @objc func handleTapGesture(tap: UITapGestureRecognizer) {
         if isOpening() {
             hide()
         } else {
@@ -76,7 +76,7 @@ class SlideMenuController: UIViewController {
         }
     }
     
-    func handleSwipeLeftGesture(swipe: UISwipeGestureRecognizer) {
+    @objc func handleSwipeLeftGesture(swipe: UISwipeGestureRecognizer) {
         if isOpening() {
             hide()
         }
